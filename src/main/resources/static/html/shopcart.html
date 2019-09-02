@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的购物车-京东商城</title>
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/menu.css" rel="stylesheet">
+    <link href="../css/shopCart.css" rel="stylesheet">
+    <link href="../css/footer.css" rel="stylesheet">
+    <script src="../script/jquery-3.4.1.min.js"></script>
+    <script src="../script/vue.min.js"></script>
+</head>
+<body>
+<!--menu部分-->
+<div id="menu">
+    <div id="menu_content">
+        <ul id="m_left">
+            <li>京东首页&nbsp&nbsp</li>
+            <li class="iconfont red font14"></li>
+            <li>福建</li>
+        </ul>
+        <ul id="m_right">
+            <li id="m_right_first"><span id="user_name">{{users_name}}</span><i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="dt"><a>我的订单</a></li>
+            <li class="spacer"></li>
+            <li class="dt1"><a>我的京东</a><i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="dt"><a>京东会员</a></li>
+            <li class="spacer"></li>
+            <li class="dt1"><span class="red">企业采购</span><i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="dt1">客户服务<i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="dt1">网站导航<i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="dt">手机京东</li>
+        </ul>
+    </div>
+</div>
+<!--title部分-->
+<div id="title">
+    <div id="title_contain">
+        <div id="logo">
+            <img src="../images/shopcart/logo.png">
+            <a href="">购物车</a>
+        </div>
+        <div id="search">
+            <div id="form">
+                <input type="text" class="text"><input type="button" value="搜索" class="query">
+            </div>
+        </div>
+    </div>
+</div>
+<!--主体部分-->
+<div id="content">
+    <!-- 主体上部分  -->
+    <div id="content_top">
+        <div id="content_top_inner">
+            <em>全部商品2</em>
+            <span>配送至:&nbsp&nbsp</span>
+            <select class="select">
+                <option>福建省厦门市集美区集美街道</option>
+            </select>
+        </div>
+    </div>
+    <!-- 主体内容购物车部分   -->
+    <div id="content_bottom">
+        <!-- 购物车清单   -->
+        <div id="content_bottom_car">
+            <div delay="false" id="cart_head">
+                <div class="cart_head_1">
+                    <input name="all" type="checkbox"><span>&nbsp&nbsp全选</span>
+                </div>
+                <div class="cart_head_2"><span>商品</span></div>
+                <div class="cart_head_3"></div>
+                <div class="cart_head_4"><span>单价</span></div>
+                <div class="cart_head_5"><span>数量</span></div>
+                <div class="cart_head_6"><span>小计</span></div>
+                <div class="cart_head_7"><span>操作</span></div>
+            </div>
+            <!--   一个购物车模板         -->
+            <div id="cart_content">
+                <div class="cart_content_1"><input name="one" type="checkbox"><div class="hideBox" style="display: none"></div></div>
+                <div class="cart_content_2">
+                    <div class="cart_content_img">
+                        <img src="../images/shopcart/cart1.jpg">
+                    </div>
+                    <div class="cart_content_text">
+                        <a class="first_a" href=""></a>
+                    </div>
+                </div>
+                <div class="cart_content_3">
+                    <div class="cart_content_select"></div>
+                </div>
+                <div class="cart_content_4">
+                    <div class="cart_content_price">
+                        <span class="first_span"></span>
+                    </div>
+                </div>
+                <div class="cart_content_5">
+                    <input class="desc" type="button" value="-">
+                    <input class="num" name="num" type="text" value="1">
+                    <input class="add" type="button" value="+">
+                </div>
+                <div class="cart_content_6">
+                    <div class="cart_content_price2">
+                        <span class="single_price">0.00</span>
+                    </div>
+                </div>
+                <div class="cart_content_7">
+                    <a class="del">删除</a><br>
+                    <a href="">移到我的关注</a>
+                </div>
+            </div>
+            <div delay="false" id="content_bottom_total">
+                <div class="total_left">
+                    <input name="all" type="checkbox">
+                    <a href="">全选</a>
+                    <a href="">删除选中商品</a>
+                    <a href="">移到关注</a>
+                    <a class="remove" href="">清理购物车</a>
+                </div>
+                <div class="total_right">
+                    <div class="amount">
+                        <span class="amount_text">已选择&nbsp<em>0</em>&nbsp件商品</span>
+                    </div>
+                    <div class="price">
+                        <span class="price_one">总价：</span>
+                        <em class="price_two">0.00</em><br>
+                        <span class="price_three">促销：</span>
+                        <span class="price_four">-¥0.00</span>
+                    </div>
+                    <a class="pay" href="http://127.0.0.1:8080/html/order.html">
+                        <input class="pay_text" type="button" value="去结算">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer部分-->
+<div id="footer">
+    <div id="service-2014">
+        <div class="slogan">
+            <img src="../images/shopcart/service_items_1.png">
+            <img src="../images/shopcart/service_items_2.png">
+            <img src="../images/shopcart/service_items_3.png">
+            <img src="../images/shopcart/service_items_4.png">
+        </div>
+        <div class="w">
+            <dl class="fore1">
+                <dt>购物指南</dt>
+                <dd>
+                    <div><a>购物流程</a>
+                    </div>
+                    <div><a>会员介绍</a>
+                    </div>
+                    <div><a>生活旅行/团购</a>
+                    </div>
+                    <div><a>常见问题</a></div>
+                    <div><a>大家电</a>
+                    </div>
+                    <div><a>联系客服</a></div>
+                </dd>
+            </dl>
+            <dl class="fore2">
+                <dt>配送方式</dt>
+                <dd>
+                    <div><a>上门自提</a>
+                    </div>
+                    <div><a>211限时达</a>
+                    </div>
+                    <div><a>配送服务查询</a>
+                    </div>
+                    <div><a>配送费收取标准</a>
+                    </div>
+                    <div><a>海外配送</a></div>
+                </dd>
+            </dl>
+            <dl class="fore3">
+                <dt>支付方式</dt>
+                <dd>
+                    <div><a>货到付款</a>
+                    </div>
+                    <div><a>在线支付</a>
+                    </div>
+                    <div><a>分期付款</a>
+                    </div>
+                    <div><a>邮局汇款</a>
+                    </div>
+                    <div><a>公司转账</a>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="fore4">
+                <dt>售后服务</dt>
+                <dd>
+                    <div><a>售后政策</a>
+                    </div>
+                    <div><a>价格保护</a>
+                    </div>
+                    <div><a>退款说明</a>
+                    </div>
+                    <div><a>返修/退换货</a>
+                    </div>
+                    <div><a>取消订单</a>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="fore5">
+                <dt>特色服务</dt>
+                <dd>
+                    <div><a>夺宝岛</a></div>
+                    <div><a>DIY装机</a></div>
+                    <div><a>延保服务</a></div>
+                    <div><a>京东E卡</a></div>
+                    <div><a>京东通信</a></div>
+                    <div><a>京东JD+</a></div>
+                </dd>
+            </dl>
+            <div id="coverage">
+                <div class="dt">
+                    京东自营覆盖区县
+                </div>
+                <div class="dd">
+                    <p>京东已向全国2649个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务。</p>
+                    <p class="ar"><a>查看详情&nbsp;&gt;</a>
+                    </p>
+                </div>
+            </div>
+            <span class="clr"></span>
+        </div>
+    </div>
+    <div class="copyright">
+        <a target="_blank" href=""><img src="images/ga.png"> 京公网安备11000002000088号</a>&nbsp;&nbsp;|&nbsp;&nbsp;京ICP证070359号&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a target="_blank" href="">互联网药品信息服务资格证编号(京)-经营性-2014-0008</a>&nbsp;&nbsp;|&nbsp;&nbsp;新出发京零&nbsp;字第大120007号<br>互联网出版许可证编号新出网证(京)字150号&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="" target="_blank">出版物经营许可证</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="" target="_blank">网络文化经营许可证京网文[2014]2148-348号</a>&nbsp;&nbsp;|&nbsp;&nbsp;违法和不良信息举报电话：4006561155<br>Copyright&nbsp;©&nbsp;2004&nbsp;-&nbsp;2016&nbsp;&nbsp;京东JD.com&nbsp;版权所有&nbsp;&nbsp;|&nbsp;&nbsp;消费者维权热线：4006067733<br>京东旗下网站：<a
+            href="" target="_blank">京东钱包</a>
+    </div>
+</div>
+<script>
+    $(function () {
+        //jquery实现单选、全选、数量加一、数量减一
+        //数量加一
+        $("input[value='+']").click(function () {
+            $(this).prev().val(parseInt($(this).prev().val()) + 1);
+            $("input[name='num']").trigger("input");
+        });
+        // //数量减一
+        $("input[value='-']").click(function () {
+            var num = parseInt($(this).next().val());
+            if (num > 1) {
+                $(this).next().val(num - 1);
+                $("input[name='num']").trigger("input");
+            } else
+                $(this).parent().next().next().children().eq(0).click();
+        });
+        //删除产品
+        $(".del").click(function () {
+            if (window.confirm("是否删除该产品？")) {
+                $(this).parent().parent().remove();
+                calcTotal();
+            }
+        });
+        //全选
+        $("input[name='all']").click(function () {
+            if ($(this).is(":checked")) {
+                $("input[name='one']").prop("checked", true);
+            } else {
+                $("input[name='one']").prop("checked", false);
+            }
+            calcTotal();
+        });
+        //合计值
+        $("input[name='num']").bind('input', function () {
+            var num = $(this).val() == '' ? 0 : parseInt($(this).val());
+            // $(this).parent().next().find("span").text((parseFloat($(this).parent().prev().find("span").text()) * num).toFixed(2));
+            $(this).parent().next().find("span").text((parseFloat($(this).parent().prev().find("span").text()) * num).toFixed(2));
+            calcTotal();
+        });
+        //勾选合计
+        var saveDataAry=[];
+        $("input[name='one']").click(function () {
+            calcTotal();
+            var data1={id:$(this).next().val(), amount:$(this).parent().parent().find("input[name=num]").val()};
+            console.log(data1);
+            saveDataAry.push(data1);
+        });
+
+            //点击结算按钮更新购物车表中的数量和状态
+            $(".pay_text").click(function () {
+                $.ajax({
+                    url: "http://127.0.0.1:8080/api/order/generate",
+                    type: "post",
+                    data:JSON.stringify(saveDataAry),
+                    dataType: "json",
+                    contentType:'application/json;charset=UTF-8',
+                    success: function () {
+                    }
+                })
+            })
+    })
+
+    //计算总价格
+    function calcTotal() {
+        var sum = 0;
+        $("#content_bottom_car div:not([delay='false'])").each(function () {  //选取除了首尾的所有div兄弟
+            if ($(this).find("input[name='one']").is(':checked')) {
+                // sum += (+$(this).children().eq(5).find("span").text());
+                sum +=(+$(this).find("span.single_price").text());  //find()的写法 二是js默认+是拼接符
+            }
+        });
+        // var total = sum.toFixed(2);
+        // $(".price_two").text(total);
+        console.log(sum);
+        $(".price_two").text(sum);
+    }
+</script>
+<script>
+    //缓存用户
+    var userid;
+    var username;
+    function getCookie(cname)
+    {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++)
+        {
+            var c = ca[i].trim();
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    if (getCookie("cookie_userid") !=null){
+        userid = getCookie("cookie_userid");
+    }if (getCookie("cookie_username") !=null){
+        username = getCookie("cookie_username");
+    }
+    var vms = new Vue({
+        el:'#user_name',
+        data:{users_name:{}},
+        created:function () {
+            this.users_name = username;
+        }
+    })
+    $(function () {
+        // //勾选checkbox
+        // $("input[name='one']").click(function () {
+        //     alert('12');
+        // })
+        //查询购物功能
+        var $model = $("#cart_content");
+        $.ajax({
+            url: "http://127.0.0.1:8080/api/cart",
+            type: "post",
+            data: {user_id: userid},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                //     alert(data);
+                // var array=eval("("+data+")")
+                // var temp = eval(data[i]);
+                for (var i = 0; i < data.length; i++) {
+                    var $temp = $model.clone(true);
+                    $temp.children().eq(0).find('.hideBox').val(data[i].id);
+                    $temp.children().eq(1).find('.first_a').html(data[i]['product_info'].title);
+                    $temp.children().eq(2).children().html(data[i]['product_info'].name);
+                    $temp.children().eq(3).find('.first_span').html(data[i]['product_version'].purprice);
+                    $temp.children().eq(4).children().eq(1).attr("value", data[i].amount);
+                    //删除购物车功能 只能在克隆部分写才能绑定上单击事件
+                    $(".del").click(function (){
+                        $.ajax({
+                            url: "http://127.0.0.1:8080/api/cartDel",
+                            type: "post",
+                            data: {id: 1},
+                            dataType: "json",
+                            success: function () {
+                                alert("删除成功！");
+                            }
+                        })
+                    })
+                    $("#content_bottom_car").children().eq(0).after($temp);
+                }
+            }
+        })
+        $model = $("#cart_content").detach();
+    })
+</script>
+
+</body>
+</html>

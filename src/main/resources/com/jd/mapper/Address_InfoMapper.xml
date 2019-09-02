@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.mapper.Address_InfoMapper">
+  <resultMap id="Address_InfoResultMap" type="com.jd.enity.Address_Info">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="receiver" jdbcType="VARCHAR" property="receiver" />
+    <result column="zipcode" jdbcType="INTEGER" property="zipcode" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="province" jdbcType="INTEGER" property="province" />
+    <result column="city" jdbcType="INTEGER" property="city" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <association property="address_province" resultMap="Address_ProvinceResultMap"></association>
+    <association property="address_city" resultMap="Address_CityResultMap"></association>
+    <association property="address_area" resultMap="Address_AreaResultMap"></association>
+  </resultMap>
+
+  <resultMap id="Address_ProvinceResultMap" type="com.jd.enity.Address_Province">
+    <id column="a_pid" jdbcType="INTEGER" property="a_pid" />
+    <result column="a_pname" jdbcType="VARCHAR" property="a_pname" />
+  </resultMap>
+  <resultMap id="Address_CityResultMap" type="com.jd.enity.Address_City">
+    <id column="a_cid" jdbcType="INTEGER" property="a_cid" />
+    <result column="a_cname" jdbcType="VARCHAR" property="a_cname" />
+  </resultMap>
+  <resultMap id="Address_AreaResultMap" type="com.jd.enity.Address_Area">
+    <id column="a_areaid" jdbcType="INTEGER" property="a_areaid" />
+    <result column="a_areaname" jdbcType="VARCHAR" property="a_areaname" />
+  </resultMap>
+
+
+
+  <select id="selectByUserId" resultMap="Address_InfoResultMap" parameterType="java.lang.Integer">
+    select a.id, a.receiver, a.zipcode, a.phone, ap.a_pname, ac.a_cname, aa.a_areaname, a.address from Address_Info a, Address_Province ap, Address_City ac, Address_Area aa where a.province = ap.a_pid and a.city = ac.a_cid and a.area = aa.a_areaid and a.user_id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <sql id="Base_Column_List">
+    id, user_id, receiver, zipcode, phone, province, city, area, address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="Address_InfoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Address_Info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Address_Info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jd.enity.Address_Info">
+    insert into Address_Info (user_id, receiver,
+      zipcode, phone, province, 
+      city, area, address
+      )
+    values (#{user_id,jdbcType=INTEGER},#{receiver,jdbcType=VARCHAR},
+      #{zipcode,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER},
+      #{city,jdbcType=INTEGER}, #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jd.enity.Address_Info">
+    insert into Address_Info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="receiver != null">
+        receiver,
+      </if>
+      <if test="zipcode != null">
+        zipcode,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="receiver != null">
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        #{zipcode,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.Address_Info">
+    update Address_Info
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="receiver != null">
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        zipcode = #{zipcode,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jd.enity.Address_Info">
+    update Address_Info
+    set user_id = #{user_id,jdbcType=INTEGER},
+      receiver = #{receiver,jdbcType=VARCHAR},
+      zipcode = #{zipcode,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      province = #{province,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      area = #{area,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updataUserid">
+    update Address_Info set user_id = #{param1,jdbcType=INTEGER} where phone = #{param2,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAddress" parameterType="java.lang.String" resultMap="Address_InfoResultMap">
+    select * from Address_Info where phone = #{phone,jdbcType=VARCHAR}
+  </select>
+
+
+<!--  <resultMap id="Address_InfoResultMap" type="com.jd.enity.Address_Info">-->
+<!--    <id column="id" jdbcType="INTEGER" property="id" />-->
+<!--    <result column="user_id" jdbcType="INTEGER" property="user_id" />-->
+<!--    <result column="receiver" jdbcType="VARCHAR" property="receiver" />-->
+<!--    <result column="zipcode" jdbcType="INTEGER" property="zipcode" />-->
+<!--    <result column="phone" jdbcType="VARCHAR" property="phone" />-->
+<!--    <result column="address" jdbcType="VARCHAR" property="address" />-->
+<!--      <association property="province" resultMap="ProvinceResultMap" />-->
+<!--      <association property="city" resultMap="CityResultMap" />-->
+<!--      <association property="area" resultMap="AreaResultMap" />-->
+<!--  </resultMap>-->
+
+<!--    <select id="getAllAddress" resultMap="Address_InfoResultMap">-->
+<!--      select * from Address_Info a, Address_Province ap, Address_City ac, Address_Area aa where a.province = ap.a_pid and a.city = ac.a_cid and a.area = aa.a_areaid;-->
+<!--    </select>-->
+
+
+
+<!--  <sql id="Base_Column_List" >-->
+<!--    id, user_id, receiver, zipcode, phone, province, city, area, address-->
+<!--  </sql>-->
+<!--  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from Address_Info-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >-->
+<!--    delete from Address_Info-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.jd.enity.Address_Info" >-->
+<!--    insert into Address_Info (id, user_id, receiver, -->
+<!--      zipcode, phone, province, -->
+<!--      city, area, address-->
+<!--      )-->
+<!--    values (#{id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER}, #{receiver,jdbcType=VARCHAR}, -->
+<!--      #{zipcode,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER}, -->
+<!--      #{city,jdbcType=INTEGER}, #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}-->
+<!--      )-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" parameterType="com.jd.enity.Address_Info" >-->
+<!--    insert into Address_Info-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--        id,-->
+<!--      </if>-->
+<!--      <if test="user_id != null" >-->
+<!--        user_id,-->
+<!--      </if>-->
+<!--      <if test="receiver != null" >-->
+<!--        receiver,-->
+<!--      </if>-->
+<!--      <if test="zipcode != null" >-->
+<!--        zipcode,-->
+<!--      </if>-->
+<!--      <if test="phone != null" >-->
+<!--        phone,-->
+<!--      </if>-->
+<!--      <if test="province != null" >-->
+<!--        province,-->
+<!--      </if>-->
+<!--      <if test="city != null" >-->
+<!--        city,-->
+<!--      </if>-->
+<!--      <if test="area != null" >-->
+<!--        area,-->
+<!--      </if>-->
+<!--      <if test="address != null" >-->
+<!--        address,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--        #{id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="user_id != null" >-->
+<!--        #{user_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="receiver != null" >-->
+<!--        #{receiver,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="zipcode != null" >-->
+<!--        #{zipcode,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="phone != null" >-->
+<!--        #{phone,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="province != null" >-->
+<!--        #{province,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="city != null" >-->
+<!--        #{city,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="area != null" >-->
+<!--        #{area,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="address != null" >-->
+<!--        #{address,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.Address_Info" >-->
+<!--    update Address_Info-->
+<!--    <set >-->
+<!--      <if test="user_id != null" >-->
+<!--        user_id = #{user_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="receiver != null" >-->
+<!--        receiver = #{receiver,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="zipcode != null" >-->
+<!--        zipcode = #{zipcode,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="phone != null" >-->
+<!--        phone = #{phone,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="province != null" >-->
+<!--        province = #{province,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="city != null" >-->
+<!--        city = #{city,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="area != null" >-->
+<!--        area = #{area,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="address != null" >-->
+<!--        address = #{address,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.jd.enity.Address_Info" >-->
+<!--    update Address_Info-->
+<!--    set user_id = #{user_id,jdbcType=INTEGER},-->
+<!--      receiver = #{receiver,jdbcType=VARCHAR},-->
+<!--      zipcode = #{zipcode,jdbcType=INTEGER},-->
+<!--      phone = #{phone,jdbcType=VARCHAR},-->
+<!--      province = #{province,jdbcType=INTEGER},-->
+<!--      city = #{city,jdbcType=INTEGER},-->
+<!--      area = #{area,jdbcType=VARCHAR},-->
+<!--      address = #{address,jdbcType=VARCHAR}-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

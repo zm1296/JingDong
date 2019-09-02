@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.mapper.User_ShopCartMapper">
+  <resultMap id="User_ShopCartResultMap1" type="com.jd.enity.User_ShopCart">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="user_id" />
+<!--    <result column="produce_id" jdbcType="INTEGER" property="produce_id" />-->
+    <result column="pversion_id" jdbcType="INTEGER" property="pversion_id" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <association property="product_info" resultMap="Product_InfoResultMap" ></association>
+    <association property="product_version" resultMap="Product_VersionResultMap"></association>
+  </resultMap>
+
+  <resultMap id="Product_VersionResultMap" type="com.jd.enity.Product_Version">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <!--    <result column="product_id" jdbcType="INTEGER" property="product_id" />-->
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="purprice" jdbcType="DECIMAL" property="purprice" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <association property="product_info" resultMap="Product_InfoResultMap"></association>
+  </resultMap>
+  <resultMap id="Product_InfoResultMap" type="com.jd.enity.Product_Info">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+    <result column="min_price" jdbcType="DECIMAL" property="min_price" />
+    <result column="discount" jdbcType="VARCHAR" property="discount" />
+    <result column="warranty_data" jdbcType="DATE" property="warranty_data" />
+    <result column="status_id" jdbcType="INTEGER" property="status_id" />
+    <association property="product_images" resultMap="Product_ImagesResultMap"></association>
+  </resultMap>
+
+  <resultMap id="Product_ImagesResultMap" type="com.jd.enity.Product_Images">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_id" jdbcType="INTEGER" property="product_id" />
+    <result column="version_id" jdbcType="INTEGER" property="version_id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="descrip" jdbcType="VARCHAR" property="descrip" />
+  </resultMap>
+
+<!--购物车部分-->
+  <select id="getAllShopCart"  parameterType="java.lang.Integer" resultMap="User_ShopCartResultMap1" >
+     select s.id, p.title,v.name,v.purprice,s.amount from User_Info u, Product_Info p,Product_Version v,User_ShopCart s
+     where s.user_id = u.id and s.produce_id = p.id and s.pversion_id = v.id and s.user_id = #{user_id}
+  </select>
+  <delete id="deleteShopCart" parameterType="java.lang.Integer">
+    delete from User_ShopCart where userid = #{userid} and status = 1;
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.User_ShopCart" >
+    update User_ShopCart set amount = #{amount} ,status = 1 where id = #{id}
+  </update>
+
+
+
+
+
+
+  <sql id="Base_Column_List">
+    id, user_id, produce_id, pversion_id, amount
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="User_ShopCartResultMap1">
+    select
+    u.amount, pv.id, pv.name, pv.price, pv.weight, p.name, p.title, pi.url
+    from User_ShopCart u,Product_Version pv, Product_Info p, Product_Images pi
+    where u.user_id = #{userid} and pv.product_id = p.id and pi.product_id = p.id and u.status = 1 and u.pversion_id = pv.id
+  </select>
+  <select id="getShopCartByUserId" parameterType="java.lang.Integer" resultMap="User_ShopCartResultMap1">
+    select
+    u.amount, pv.id, pv.name, pv.price, pv.weight, p.name, p.title, pi.url
+    from User_ShopCart u,Product_Version pv, Product_Info p, Product_Images pi
+    where u.user_id = #{userid} and pv.product_id = p.id and pi.product_id = p.id and u.status = 1 and u.pversion_id = pv.id
+  </select>
+
+  <delete id="deleteShopCartByStatus" parameterType="java.lang.Integer">
+    delete from User_ShopCart where id = #{id,jdbcType=INTEGER} and status = 1
+  </delete>
+  <insert id="insertShopCart" parameterType="com.jd.enity.User_ShopCart">
+    insert into User_ShopCart (user_id, produce_id, pversion_id, amount)
+    values (#{user_id,jdbcType=INTEGER}, #{produce_id,jdbcType=INTEGER},
+      #{pversion_id,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER})
+  </insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from User_ShopCart
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jd.enity.User_ShopCart">
+    insert into User_ShopCart (id, user_id, produce_id,
+      pversion_id, amount)
+    values (#{id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER}, #{produce_id,jdbcType=INTEGER},
+      #{pversion_id,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jd.enity.User_ShopCart">
+    insert into User_ShopCart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="produce_id != null">
+        produce_id,
+      </if>
+      <if test="pversion_id != null">
+        pversion_id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="produce_id != null">
+        #{produce_id,jdbcType=INTEGER},
+      </if>
+      <if test="pversion_id != null">
+        #{pversion_id,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.User_ShopCart">-->
+<!--    update User_ShopCart-->
+<!--    <set>-->
+<!--      <if test="user_id != null">-->
+<!--        user_id = #{user_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="produce_id != null">-->
+<!--        produce_id = #{produce_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="pversion_id != null">-->
+<!--        pversion_id = #{pversion_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="amount != null">-->
+<!--        amount = #{amount,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.jd.enity.User_ShopCart">-->
+<!--    update User_ShopCart-->
+<!--    set user_id = #{user_id,jdbcType=INTEGER},-->
+<!--      produce_id = #{produce_id,jdbcType=INTEGER},-->
+<!--      pversion_id = #{pversion_id,jdbcType=INTEGER},-->
+<!--      amount = #{amount,jdbcType=INTEGER}-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--    <select id="getVersionIdById" parameterType="java.lang.Integer" resultMap="java.lang.Integer">-->
+<!--        select pversion_id from User_ShopCart where id = #{id,jdbcType=INTEGER}-->
+<!--    </select>-->
+
+</mapper>

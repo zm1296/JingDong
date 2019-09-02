@@ -1,0 +1,54 @@
+/*menu*/
+#menu {
+    margin: 0px auto;
+    width: 1520px;
+    height: 31px;
+    background-color: #E3E4E5;
+    color: #999999
+}
+
+#menu li {
+    line-height: 30px
+}
+
+#menu_content {
+    width: 990px;
+    height: 30px;
+    margin: 0px auto;
+}
+
+#m_left li {
+    margin-right: 4px
+}
+
+#m_right {
+    width: 704px;
+    height: 30px;
+    float: right
+}
+
+#m_right .dt {
+    width: 62px;
+    height: 30px;
+    padding: 0 2px;
+    text-align: center
+}
+
+#m_right .dt1 {
+    width: 77px;
+    height: 30px;
+    padding: 0 2px;
+    text-align: center
+}
+
+#m_right_first {
+    width: 105px
+}
+
+#m_right .spacer {
+    overflow: hidden;
+    margin: 11px 5px 0;
+    width: 1px;
+    height: 10px;
+    background-color: #ccc;
+}

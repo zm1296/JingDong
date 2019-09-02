@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.mapper.Address_AreaMapper">
+  <resultMap id="BaseResultMap" type="com.jd.enity.Address_Area">
+    <id column="a_areaid" jdbcType="INTEGER" property="a_areaid" />
+    <result column="a_areaname" jdbcType="VARCHAR" property="a_areaname" />
+    <result column="a_c_id" jdbcType="INTEGER" property="a_c_id" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    a_areaid, a_areaname, a_c_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Address_Area
+    where a_areaid = #{a_areaid,jdbcType=INTEGER}
+  </select>
+  <select id="getArea" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from Address_Area
+    where a_c_id = #{a_c_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Address_Area
+    where a_areaid = #{a_areaid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jd.enity.Address_Area">
+    insert into Address_Area (a_areaid, a_areaname, a_c_id
+      )
+    values (#{a_areaid,jdbcType=INTEGER}, #{a_areaname,jdbcType=VARCHAR}, #{a_c_id,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jd.enity.Address_Area">
+    insert into Address_Area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="a_areaid != null">
+        a_areaid,
+      </if>
+      <if test="a_areaname != null">
+        a_areaname,
+      </if>
+      <if test="a_c_id != null">
+        a_c_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="a_areaid != null">
+        #{a_areaid,jdbcType=INTEGER},
+      </if>
+      <if test="a_areaname != null">
+        #{a_areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="a_c_id != null">
+        #{a_c_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.Address_Area">
+    update Address_Area
+    <set>
+      <if test="a_areaname != null">
+        a_areaname = #{a_areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="a_c_id != null">
+        a_c_id = #{a_c_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where a_areaid = #{a_areaid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jd.enity.Address_Area">
+    update Address_Area
+    set a_areaname = #{a_areaname,jdbcType=VARCHAR},
+      a_c_id = #{a_c_id,jdbcType=INTEGER}
+    where a_areaid = #{a_areaid,jdbcType=INTEGER}
+  </update>
+  <resultMap id="AreaResultMap" type="com.jd.enity.Address_Area">
+    <id column="a_areaid" jdbcType="INTEGER" property="a_areaid" />
+    <result column="a_areaname" jdbcType="VARCHAR" property="a_areaname" />
+    <result column="a_c_id" jdbcType="INTEGER" property="a_c_id" />
+  </resultMap>
+<!--  <sql id="Base_Column_List" >-->
+<!--    a_areaid, a_areaname, a_c_id-->
+<!--  </sql>-->
+<!--  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from Address_Area-->
+<!--    where a_areaid = #{a_areaid,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >-->
+<!--    delete from Address_Area-->
+<!--    where a_areaid = #{a_areaid,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.jd.enity.Address_Area" >-->
+<!--    insert into Address_Area (a_areaid, a_areaname, a_c_id-->
+<!--      )-->
+<!--    values (#{a_areaid,jdbcType=INTEGER}, #{a_areaname,jdbcType=VARCHAR}, #{a_c_id,jdbcType=INTEGER}-->
+<!--      )-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" parameterType="com.jd.enity.Address_Area" >-->
+<!--    insert into Address_Area-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides="," >-->
+<!--      <if test="a_areaid != null" >-->
+<!--        a_areaid,-->
+<!--      </if>-->
+<!--      <if test="a_areaname != null" >-->
+<!--        a_areaname,-->
+<!--      </if>-->
+<!--      <if test="a_c_id != null" >-->
+<!--        a_c_id,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides="," >-->
+<!--      <if test="a_areaid != null" >-->
+<!--        #{a_areaid,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="a_areaname != null" >-->
+<!--        #{a_areaname,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="a_c_id != null" >-->
+<!--        #{a_c_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.Address_Area" >-->
+<!--    update Address_Area-->
+<!--    <set >-->
+<!--      <if test="a_areaname != null" >-->
+<!--        a_areaname = #{a_areaname,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="a_c_id != null" >-->
+<!--        a_c_id = #{a_c_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where a_areaid = #{a_areaid,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.jd.enity.Address_Area" >-->
+<!--    update Address_Area-->
+<!--    set a_areaname = #{a_areaname,jdbcType=VARCHAR},-->
+<!--      a_c_id = #{a_c_id,jdbcType=INTEGER}-->
+<!--    where a_areaid = #{a_areaid,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

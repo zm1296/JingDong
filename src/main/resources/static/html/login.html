@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JD_login</title>
+    <link type="text/css" rel="stylesheet" href="../css/login.css">
+    <script src="../script/jquery-3.4.1.min.js"></script>
+    <script>
+        var name;
+        var password;
+        $(function(){
+            //点击 "扫码登录"
+            $("#lo_t1").click(function () {
+                $("#qrc_main").css({"display":""});
+                $("#login_box").css({"display":"none"})
+                $("#mc").css({"margin-top":"30px"})
+            }),
+            //点击账 "号密码登录"
+            $("#lo_t2").click(function () {
+                $("#qrc_main").css({"display":"none"});
+                $("#login_box").css({"display":"inline"});
+                // $("#mistake").css({"display":"inline"});  提交的信息不对则出现
+                $("#mc").css({"margin-top":"10px"})
+
+            }),
+            //点击 "登录"
+            $("#login_btn").click(function () {
+                // alert("lodin");
+                $.ajax({
+                    url:"http://127.0.0.1:8080/login",
+                    type:"post",
+                    dataType:"json",
+                    data:{
+                        name:$("#name").val(),
+                        password:$("#pass").val(),
+                    },
+                    success:function (data) {
+                        if(data.id!=-1){
+                            alert("登录成功！欢迎");
+                            document.cookie = "cookie_userid = " + data.id;
+                            document.cookie = "cookie_username = " + data.name;
+                            window.location.href="http://127.0.0.1:8080/html/search.html"  //*********要跳到首页
+                           }else{
+                            alert("登录失败");
+                            $("#mistake").css("display","inline"); //显示错误信息
+                            }
+
+                    },error:function (data) {
+                        alert("出现错误")
+                    }
+                });
+            }),
+            //点击 "注册"
+            $("#registered").click(function () {
+                    $.ajax({
+                        url:"http://127.0.0.1:8080/registered",
+                        success:function (data) {
+                            alert(data);
+                            window.location.href="https://www.baidu.com";  //************跳转到注册界面
+                        }
+                    })
+            })
+            //点击 "登录页面，调查问卷"
+            //点击 "京东隐私政策"
+            //点击 "忘记密码"
+            //点击 "QQ"
+            //点击 "微信"
+            /*****下边的不重要*****/
+            //点击 "关于我们"
+            //点击 "联系我们"
+            //点击 "人才招聘"
+            //点击 "广告服务"
+            //点击 "手机京东"
+            //点击 ""
+            //点击 ""
+            //点击 ""
+        })
+    </script>
+</head>
+<body>
+<div id="body"><!---->
+    <div id="logo">
+        <div id="logo_dog"><img src="../images/login/logo.png"></div>
+        <div id="logo_word">欢迎登陆</div>
+    </div>          <!--1.京狗欢登图标-->
+    <div id="q-link">
+        <div id="q-link_1"><img src="../images/login/info.jpg"></div>
+        <a href="#">登陆页面，调查问卷</a>
+    </div>        <!--2.调查问卷-->
+    <div id="tips-inner">
+        <div id="cont-wrapp">
+            <div id="icon-tips"></div>
+            依据《网络安全法》，为保障您的账户安全和正常使用，请尽快完成手机号验证！ 新版<a href="#">《京东隐私政策》</a>已上线，将更有利于保护您的个人隐私。
+        </div>
+    </div>    <!--3.网络安全法-->
+    <div id="login_banner">
+        <div id="banner">
+            <div id="banner_left">
+                <div id="banner_left_tips_wrap">
+                    <div id="banner_left_tips_inner"><div></div>京东不会以任何理由要求您转账汇款，谨防诈骗。</div>
+                </div>
+                <div class="lo_tab_1">
+                    <div class="lo_tab_1_in" id="lo_t1"><a >扫码登录</a></div>
+                </div>
+                <div class="lo_tab_1">
+                    <div class="lo_tab_1_in"id="lo_t2"><a >账户登录</a></div>
+                </div>
+                <div id="mc">
+                                        <div id="qrc_main">   <!-- 扫码和账户登录替换-- 扫码-->
+                                            <div id="qrc-img">
+                                                <div id="qrc-img_center"> <img src="../images/login/show.png"></div>
+                                            </div>
+                                            <div id="qrc-pa1">
+                                                <ul>
+                                                    <li >&nbsp &nbsp&nbsp打开<a href="#">手机京东</a> &nbsp&nbsp&nbsp</li>
+                                                    <li >扫描二维码</li>
+                                                </ul>
+                                            </div>
+                                            <div id="qrc-pa2">
+                                                <ul>
+                                                    <li><b id="qrc-pa2_1"></b>免输入</li>
+                                                    <li><b id="qrc-pa2_2"></b>更换</li>
+                                                    <li><b id="qrc-pa2_3"></b>更安全</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                    <!--这是测试-->
+                    <div id="login_box"> <!--账户密码的登录切换 --账户密码-->
+                        <div id="mistake">
+                            <div id="mis_img"></div><p> 账户或密码输入不正确</p>
+                        </div>
+                        <div id="login_form">
+                            <div class="login_model">
+                                <div id="name_img"></div>
+                                <div id="name_num">
+                                    <sapn class="input_clear"></sapn>
+                                    <input id="name" class="input_" type="text" value placeholder="邮箱/用户名/已验证手机">
+
+                                </div>
+                            </div>
+                            <div class="login_model">
+                                <div id="pass_img"></div>
+                                <div id="pass_num">
+                                    <sapn class="input_clear"></sapn>
+                                    <input id="pass" class="input_" type="password" value placeholder="密码">
+                                </div>
+                            </div>
+                            <div id="safe">
+                                <a href="#">忘记密码</a>
+                            </div>
+                            <div id="login_btn">
+                                <a href="#">&nbsp&nbsp&nbsp登&nbsp&nbsp&nbsp&nbsp录</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="kbc">
+                    <div id="kbc_coa">
+                        <ul id="kbc_ul">
+                            <li><a href="#">
+                                <div id="QQ_"></div>
+                                QQ</a></li>
+                            <li><a href="#">
+                                <div id="weixin"></div>
+                                微信</a></li>
+                        </ul>
+                        <div id="float_r">
+                            <div id="reg_link" ><a id="registered"><div></div>立即注册</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>  <!--4.中间核心部分-->
+    <div id="foot">
+        <div id="links">
+            <a href="#">关于我们</a><b>&nbsp|&nbsp</b>
+            <a href="#">联系我们</a><b>&nbsp|&nbsp;</b>
+            <a href="#">人才招聘</a><b>&nbsp|&nbsp;</b>
+            <a href="#">广告服务</a><b>&nbsp|&nbsp;</b>
+            <a href="#">手机京东</a><b>&nbsp|&nbsp;</b>
+            <a href="#">友情链接</a><b>&nbsp|&nbsp;</b>
+            <a href="#">销售联盟</a><b>&nbsp|&nbsp;</b>
+            <a href="#">京东社区</a><b>&nbsp|&nbsp;</b>
+            <a href="#">京东公益</a><b>&nbsp|&nbsp;</b>
+            <a href="#">关于我们</a><b>&nbsp|&nbsp;</b>
+            <a href="#">English Site</a>
+        </div>    <!--关于我们-->
+        <div id="copy">
+            Copyright&nbsp;©&nbsp;2004-2019&nbsp;&nbsp;京东JD.com&nbsp;版权所有
+        </div>  <!--@..........部分-->
+    </div>          <!--5.底部-->
+</div>
+</body>
+</html>

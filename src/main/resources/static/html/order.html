@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单结算页-京东商城</title>
+    <link href="../css/order.css" ; type="text/css" ; rel="stylesheet">
+    <link href="../css/input.css" ; type="text/css" ; rel="stylesheet">
+    <script src="../script/order.js"></script>
+    <script src="../script/input.js"></script>
+    <script src="../script/vue.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="//sp.jd.com/payment/1.2.0/css/bankList.css" charset="utf-8">
+    <link type="text/css" rel="stylesheet"  href="//misc.360buyimg.com/user/purchase/2.0.0/widget/??common/common.css,header-2017/header-2017.css,consignee-scroll/consignee-scroll.css,consignee-selfpick/consignee-selfpick.css,payment-step/payment-step.css,presale-step/presale-step.css,shopping-list/shopping-list.css,invoice-dialog/invoice-dialog.css,order-virtual/order-virtual.css,order-summary/order-summary.css,checkout-floatbar/checkout-floatbar.css,paypwd/paypwd.css,/delivery-calendar-freight/delivery-calendar-freight.css,backpanel/backpanel.css" source="widget"/>
+    <link type="text/css" rel="stylesheet"  href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/5.0.0/ui-base.css,shortcut/5.0.0/shortcut.css,global-header/5.0.0/global-header.css,myjd/5.0.0/myjd.css,nav/5.0.0/nav.css,shoppingcart/5.0.0/shoppingcart.css,global-footer/5.0.0/global-footer.css,service/5.0.0/service.css"/>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/1.0.0/unit/??base/5.0.0/base.js,basePatch/1.0.0/basePatch.js"></script>
+    <script type="text/javascript" src="//misc.360buyimg.com/user/purchase/2.0.0/js/cookieTrack_v4.js"></script>
+
+    <script type="text/javascript" src="//trade.jd.com/shopping/misc/js/order.common.js?r=20180208"></script>
+    <script type="text/javascript" src="//trade.jd.com/shopping/misc/js/jquery.checkout.js?v=03091"></script>
+    <script type="text/javascript"  src="//trade.jd.com/static/js/lib/other/class.mini.js"></script>
+</head>
+<body>
+<div class="header">
+    <ul >
+        <li style="float: left; margin-left: 200px"><a href="#"><img src="../images/order/header/header-1.png" ><span> 京东首页</span></a></li>
+        <li style="float: left; margin-left: 20px" class="dropdown">
+            <a href="#">
+                <img src="../images/order/header/header-2.png" >
+                <span id="default-province">福建</span>
+            </a>
+            <ul class="dropdown-menu" id="dropdown-province">
+                <li class="province-menu"><a href="#">省份</a></li>
+            </ul>
+        </li>
+    </ul>
+    <ul>
+        <li style="float: right;  margin-right: 200px"><a href="#"><span> 手机京东 </span></a></li>
+        <li style="float: right;  margin-right: 20px"><a href="#"><span> 网站导航 </span><img src="../images/order/header/header-4.png"></a> | </li>
+        <li style="float: right;  margin-right: 20px"><a href="#"><span> 客户服务 </span><img src="../images/order/header/header-4.png"></a> | </li>
+        <li style="float: right;  margin-right: 20px"><a href="#"><span> 企业采购 </span><img src="../images/order/header/header-4.png"></a> | </li>
+        <li style="float: right;  margin-right: 20px"><a href="#"><span> 京东会员 </span></a> | </li>
+        <li style="float: right;  margin-right: 20px"><a href="#"><span> 我的京东 </span><img src="../images/order/header/header-4.png"></a> | </li>
+        <li style="float: right;  margin-right: 20px"><a href="#"><span> 我的订单 |</span></a></li>
+        <li  style="float: right;  margin-right: 20px"><a href="#"><span id="username">{{users.name}}<img src="../images/order/header/header-3.png" style=" width: 40px; height: 15px"> <img src="../images/order/header/header-4.png" ></span></a> | </li>
+    </ul>
+</div>
+<div class="top">
+    <div class="top-img">
+        <a href="#"><img src="../images/order/top/top1.png" style="float: left;"></a>
+        <a href="#"><img src="../images/order/top/top-cal.png" style="float: left;"></a>
+        <img src="../images/order/top/top-right.png" style="float: right; margin-right: 400px">
+    </div>
+    <div>
+        <span style="font-size: 22px; float: left; clear: left;color: #666666; line-height: 30px">填写并核对订单信息</span>
+    </div>
+</div>
+<div class="order">
+    <div class="receiver">
+        <div class="orderhead">
+            <span style="margin-left: 40px; line-height: 40px" class="blackfont">收货人信息</span>
+            <a href="#"><span style="margin-right: 80px; line-height: 40px; float: right" class="bluefont">新增收货地址</span></a>
+        </div>
+        <div id="address" style="margin-left: 50px">
+            <div id="third_2_2">
+                <button class="third_2_2_1a">{{addr.receiver}} &nbsp {{addr.address_province.a_pname}}</button>
+                <div id="third_2_2_2">
+                    <span class="sp4"> &nbsp{{addr.receiver}}</span>
+                    <span class="sp4"> {{addr.address_province.a_pname}} {{addr.address_city.a_cname}} {{addr.address_area.a_areaname}} {{addr.address}}</span>
+                    <span class="sp4">{{addr.phone}}</span>
+                    <span id="sp5">默认地址</span>
+                </div>
+            </div>
+        </div>
+        <button style="border: none; background-color: white; font-size: 13px; float: left; clear: left; margin-left: 100px; height: 30px">更多地址<img src="../images/order/mma.png" width="14px"></button>
+        <div class="JDziti" style="float: left; clear: left">
+            <span style="margin-left: 80px; top: 20px" class="span1">京东自提</span>
+            <span style="margin-left: 30px; color: red" class="bluefont">抱歉，存在不支持自提的商品或该地址下没有可用的自提点</span>
+            <span class="bluefont" style="margin-left: 40px"> 详情</span>
+        </div>
+        <!--        <div class="hr" style="margin-top: 15px"></div>-->
+    </div>
+    <div class="payment">
+        <div class="orderhead">
+            <span style="margin-left: 40px; line-height: 40px; float: left; clear: left" class="blackfont">支付方式</span>
+            <div id="third_2_5">
+                <a><button class="paytype-no" id="paytype1">京东钱包</button></a>
+                <a><button class="paytype-yes" id="paytype2">支付宝</button></a>
+                <a><button class="paytype-no" id="paytype3">微信支付</button></a>
+                <a><button class="paytype-no" id="paytype4">银行卡</button></a>
+                <a><button class="paytype-no" id="paytype5">云闪付</button></a>
+                <a><button class="paytype-no" id="paytype6">京东白条</button></a>
+            </div>
+        </div>
+        <!--        <div class="hr" style="margin-top: 15px"></div>-->
+    </div>
+    <div class="product-list">
+        <div class="orderhead">
+            <span style="margin-left: 40px; line-height: 40px; float: left; clear: left" class="blackfont">送货清单（暂时只支持京东自营商品）</span>
+            <a href="#"><span style="margin-right: 100px; line-height: 40px; float: right; clear: right" class="bluefont"><img src="../images/order/order-1.png" height="16px" style="margin-top: 5px">价格说明</span></a>
+            <a href="#"><span style="margin-right: 50px; line-height: 40px; float: right;" class="bluefont">返回修改购物车</span></a>
+        </div>
+        <div class="express-list">
+            <div class="express" id="list-left" >
+                <div class="kdgs">
+                    <div class="listhead">
+                        <span class="list-blackfont">配送方式</span>
+                        <a href="#"><span style="margin-left: 190px; line-height: 40px" class="bluefont">对应商品</span></a>
+                    </div>
+                    <div style="height: 30px">
+                        <ul style="float: left; margin-left: 55px">
+                            <li style="list-style:none; float: left; width: 150px;">
+                                <button class="transporttype-yes" id="transporttype-1">京东快递</button>
+                            </li>
+                            <li style="list-style:none; float: left; width: 150px;">
+                                <button class="transporttype-no" id="transporttype-2">顺丰快递</button>
+                            </li>
+                            <li style="list-style:none; float: left; width: 150px;">
+                                <button class="transporttype-no" id="transporttype-3">EMS</button>
+                            </li>
+                            <li style="list-style:none; float: left; width: 150px;">
+                                <button class="transporttype-no" id="transporttype-4">申通快递</button>
+                            </li>
+                            <li style="list-style:none; float: left; width: 150px;">
+                                <button class="transporttype-no" id="transporttype-5">德邦物流</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <hr width="0px"><br>
+                    <span style="margin-left: 30px; font-size: 13px; color: #999999;">配送时间：</span>
+                    <span style="margin-left: 10px; font-size: 13px; color: #666666;">工作日、双休日与节假日均可送货</span>
+                </div>
+                <hr width="250" style="color: #a7a7a7;">
+                <div class="thwy">
+                    <input id="vender_0" type="checkbox" class="mr5 buyer_freight_insurance" onclick="selectBuyerFreightInsurance(this, 0)" >退换无忧
+                    <span style="margin-left: 15px; color: red" class="bluefont">￥0.5</span><br><br>
+                    <div style="margin-left: 25px; width: 300px; height: auto">
+                        <span style="font-size: 13px; color: #666666;">注：自签收7天内退货、15天内换货，可享受一次上门取件服务。</span>
+                        <span class="bluefont" style="margin-left: 20px"><a>查看详情</a></span>
+                    </div>
+                    <br>
+                </div>
+                <hr width="250" style="color: #a7a7a7;">
+                <div class="weight">
+                    <span style="margin-left: 40px; font-size: 14px; color: #666666; ">总重量：</span>
+                    <span style="margin-left: 10px; font-size: 14px; color: #999999; ">7.777kg</span>
+                </div>
+            </div>
+            <div class="product" id="list-right" >
+                <div style="font-weight: bold; margin-left: 15px; font-size: 13px; margin-top: 15px">商家：京东自营</div>
+                <div class="product-goods" id="product-info" v-for="product in products" >
+                    <img id="product-image" height="140px" style="float: left; padding: 30px 30px 20px 20px" src="https://img10.360buyimg.com/cms/s80x80_jfs/t1/68251/30/6535/298302/5d4b8bb8E86020fc2/de5e39a2420c3f30.jpg">
+                    <div class="product-descrip">
+                        <div class="product-title" style="height: 50px;">{{product.product_version.product_info.title}}</div><br>
+                        <div style="font-weight: bold; float: left">颜色：<div style="float:right; font-weight: normal; width:150px;  text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">{{product.product_version.name}}</div></div>
+<!--                        <div style="margin-top:15px; font-weight: bold; float: left">尺码：<div style="float:right; font-weight: normal; width:150px;  text-overflow:ellipsis; white-space:nowrap; overflow:hidden;">盒装国行解锁版</div></div><br>-->
+                        <div class="third_2_7_2_2_6" style="float: left; clear: left; font-size: 13px; margin-top: 15px">
+                            <img src="../images/order/xx.png">
+                            支持7天无理由退货（非使用后）
+                        </div>
+                    </div>
+                    <div class="product-price">
+                        <div class="product-descrip-price">￥{{product.product_version.price}}</div>
+                        <div class="product-descrip-weight">{{product.product_version.weight}}g</div>
+                    </div>
+                    <div class="product-count">x{{product.amount}}</div>
+                    <div class="product-status">有货</div>
+                </div>
+            </div>
+        </div>
+        <!--        <div class="hr" style="margin-top: 15px"></div>-->
+    </div>
+    <div class="invoice" style="margin-top: 40px">
+        <div class="step-tit" id="invoice-step" style="margin-top: 50px">
+            <h3 style="margin-left: 40px; line-height: 40px; float: left; clear: left" class="blackfont">发票信息</h3>
+            <div class="tips-new-white" style="float: left;">
+                <b></b><span><i></i>开企业抬头发票须填写纳税人识别号，以免影响报销</span><br>
+            </div>
+        </div>
+        <div class="step-content">
+            <div id="part-inv" class="invoice-cont" style="float: left; clear: left; margin-left: 50px">
+                <span class="mr10"> 电子普通发票 <i class='invoice-tips-icon' data-tips='电子普通发票与纸质发票具有同等法律效力，可支持报销入账、商品售后凭证。'></i> &nbsp; </span>
+                <span class="mr10"> 个人&nbsp; </span>
+                <span class="mr10"> 商品明细&nbsp; </span>
+                &nbsp;
+                <a href="#none" id="invoiceEdit" class="ftx-05 invoice-edit" onclick="edit_Invoice()" clstag="pageclick|keycount|trade_201602181|16">修改</a>
+            </div>
+        </div>
+        <!--        <div class="hr" style="margin-top: 15px"></div>-->
+    </div>
+    <div class="discount" style="height: 60px">
+        <h3 style="margin-left: 40px; line-height: 40px; float: left" class="blackfont">使用优惠/礼品卡/抵用<img src="../images/order/mma.png" style="height: 14px"></h3>
+    </div>
+</div>
+<div id="calculation" style="margin-right: 200px">
+    <div class="order-summary">
+        <!--  预售 计算支付展现方式 begin -->
+        <div class="statistic fr mt20">
+            <div class="list">
+                <span><em class="ftx-01" id="totalcount">共 {{totalamount}}</em> 件商品，总商品金额：</span>
+                <em class="price" id="warePriceId">￥{{totalcost}}</em>
+            </div>
+            <div class="list" id="shuifeiId">
+                <span>税费：</span>
+                <em class="price" id="gstTaxAmountId" > <i class="freight-icon gstTaxAmount"></i><font color="#FF6600"> ￥0.00 </font></em>
+            </div>
+            <div class="list hide" id="crossRegionalFeetip">
+                <span>调货服务费：</span>
+                <em class="price" id="crossRegionalFeeId" > <i class="freight-icon crossRegionalFee"></i><font color="#FF6600"> ￥0.00 </font></em>
+            </div>
+            <div class="list">
+                <span>运费：</span>
+                <em class="price" id="freightPriceId"> ￥0.00</em>
+            </div>
+            <div class="list" style="display: none"  id="buyerFreightDivId">
+                <span>退换无忧：</span>
+                <em class="price" id="buyerFreightInsuranceId">￥0.00</em>
+            </div>
+            <div class="list"
+                 id="showCouponPrice"  style="display:none;"  >
+                <input id="couponPriceNum" type="hidden" value="0"/>
+                <input id="couponPricehidden" type="hidden" value="0.00"/>
+                <span>商品优惠：</span><em class="price" id='couponPriceId'>-￥0.00</em>
+            </div>
+        </div>
+        <div class="clr"></div>
+    </div>
+    <div class="trade-foot-detail-com" style="margin-left: 200px; width: 1100px">
+        <div class="fc-price-info">
+            <span class="price-tit">应付总额：</span>
+            <span class="price-num" id="totalmoney">￥{{totalcost}}</span>
+        </div>
+        <div class="giftbuy-info">
+            <label class="noShowMoney hide" id="giftBuyHidePriceDiv">
+                <input type="checkbox" id="giftBuyHidePrice" checked>包装内不显示礼品价格
+            </label>
+        </div>
+        <div class="fc-consignee-info" id="address-bottom">
+            <span class="mr20" id="sendAddr">寄送至： {{addr.address_province.a_pname}} {{addr.address_city.a_cname}} {{addr.address_area.a_areaname}} {{addr.address}}</span>
+            <span id="sendMobile">收货人：{{addr.receiver}} &nbsp {{addr.phone}}</span>
+        </div>
+        <div><button id="submitorder">提交订单</button></div>
+    </div>
+</div>
+<div id="service-2017" style="margin-top: 150px">
+    <div class="w" style="height: 100px">
+        <img src="../images/order/dkhs.png" width="1000px">
+    </div>
+    <div class="jd-help">
+        <div class="w">
+            <div class="wrap">
+                <dl class="fore1">
+                    <dt>购物指南</dt>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">购物流程</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">会员介绍</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">生活旅行/团购</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">常见问题</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">大家电</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">联系客服</a>
+                    </dd>
+                </dl>
+                <dl class="fore2">
+                    <dt>配送方式</dt>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">上门自提</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">211限时达</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">配送服务查询</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">配送费收取标准</a>
+                    </dd>
+                    <dd>
+                        <a target="_blank" href="#">海外配送</a>
+                    </dd>
+                </dl>
+                <dl class="fore3">
+                    <dt>支付方式</dt>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">货到付款</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">在线支付</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">分期付款</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">邮局汇款</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">公司转账</a>
+                    </dd>
+                </dl>
+                <dl class="fore4">
+                    <dt>售后服务</dt>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">售后政策</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">价格保护</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">退款说明</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">返修/退换货</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">取消订单</a>
+                    </dd>
+                </dl>
+                <dl class="fore5">
+                    <dt>特色服务</dt>
+                    <dd>
+                        <a target="_blank" href="#">夺宝岛</a>
+                    </dd>
+                    <dd>
+                        <a target="_blank" href="#">DIY装机</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">延保服务</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">京东E卡</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">京东通信</a>
+                    </dd>
+                    <dd>
+                        <a rel="nofollow" target="_blank" href="#">京鱼座智能</a>
+                    </dd>
+                </dl>
+                <span class="clr"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer-2017" Includefile_Footer_id="1002">
+    <div class="w">
+        <div class="copyright_links">
+            <p>
+                <a href="#" target="_blank">关于我们</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">联系我们</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">联系客服</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">合作招商</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">商家帮助</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">营销中心</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">手机京东</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">友情链接</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">销售联盟</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">京东社区</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">风险监测</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">隐私政策</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">京东公益</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">English Site</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">Media & IR</a>
+            </p>
+        </div>
+        <div class="copyright_info">
+            <p>
+                <a href="#" target="_blank">京公网安备 11000002000088号</a><span class="copyright_split">|</span><span>京ICP证070359号</span><span class="copyright_split">|</span>
+                <a href="#" target="_blank">互联网药品信息服务资格证编号(京)-经营性-2014-0008</a><span class="copyright_split">|</span><span>新出发京零 字第大120007号</span></p>
+            <p><span>互联网出版许可证编号新出网证(京)字150号</span><span class="copyright_split">|</span>
+                <a href="#" target="_blank">出版物经营许可证</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">网络文化经营许可证京网文[2014]2148-348号</a><span class="copyright_split">|</span><span>违法和不良信息举报电话：4006561155</span></p>
+            <p><span class="copyright_text">Copyright &copy; 2004 - <em id="copyright_year">2019</em>  京东JD.com 版权所有</span><span class="copyright_split">|</span><span>消费者维权热线：4006067733</span>
+                <a href="#" target="_blank" class="copyright_license">经营证照</a>
+                <span class="copyright_split">|</span>
+                <span>(京)网械平台备字(2018)第00003号</span>
+                <span class="copyright_split">|</span>
+                <a href="#" target="_blank" class="mod_business_license">营业执照</a>
+            </p>
+            <p class="mod_copyright_inter">
+                <a class="mod_copyright_inter_lk" href="//www.joybuy.com/?source=1&visitor_from=3" target="_blank" clstag="h|keycount|btm|btmnavi_null0501"><i class="mod_copyright_inter_ico mod_copyright_inter_ico_global"></i><span class="languagefont">&#xe901;</span></a>
+                <span class="copyright_split">|</span>
+                <a class="mod_copyright_inter_lk" href="//www.jd.ru/?source=1&visitor_from=3" target="_blank" clstag="h|keycount|btm|btmnavi_null0502"><i class="mod_copyright_inter_ico mod_copyright_inter_ico_rissia"></i><span class="languagefont">&#xe904;</span></a>
+                <span class="copyright_split">|</span>
+                <a class="mod_copyright_inter_lk" href="//www.jd.id/?source=1&visitor_from=3" target="_blank" clstag="h|keycount|btm|btmnavi_null0503"><i class="mod_copyright_inter_ico mod_copyright_inter_ico_indonesia"></i><span class="languagefont">&#xe902;</span></a>
+                <span class="copyright_split">|</span>
+                <a class="mod_copyright_inter_lk" href="//www.joybuy.es/?source=1&visitor_from=3" target="_blank" clstag="h|keycount|btm|btmnavi_null0504"><i class="mod_copyright_inter_ico mod_copyright_inter_ico_spain"></i><span class="languagefont">&#xe903;</span></a>
+                <span class="copyright_split">|</span>
+                <a class="mod_copyright_inter_lk" href="//www.jd.co.th/?source=1&visitor_from=3" target="_blank" clstag="h|keycount|btm|btmnavi_null0505"><i class="mod_copyright_inter_ico mod_copyright_inter_ico_thailand"></i><span class="languagefont">&#xe900;</span></a>
+            </p>
+            <p><span>京东旗下网站：</span>
+                <a href="#" target="_blank">京东钱包</a><span class="copyright_split">|</span>
+                <a href="#" target="_blank">京东云</a>
+            </p>
+        </div>
+        <p class="copyright_auth">
+            <script type="text/JavaScript">function CNNIC_change(eleId){var str= document.getElementById(eleId).href;var str1 =str.substring(0,(str.length-6));str1+=CNNIC_RndNum(6);
+                document.getElementById(eleId).href=str1;}function CNNIC_RndNum(k){var rnd=""; for (var i=0;i
+            < k;i++) rnd+=Math.floor(Math.random()*10); return rnd;};(function(){var d=new Date;document.getElementById(
+                "copyright_year").innerHTML=d.getFullYear()})();</script>
+            <a id="urlknet" class="copyright_auth_ico copyright_auth_ico_2" onclick="CNNIC_change('urlknet')" oncontextmenu="return false;"
+               name="CNNIC_seal" href="#" target="_blank">可信网站信用评估</a>
+            <a class="copyright_auth_ico copyright_auth_ico_3" href="#" target="_blank">网络警察提醒你</a>
+            <a class="copyright_auth_ico copyright_auth_ico_4" href="#" target="_blank">诚信网站</a>
+            <a class="copyright_auth_ico copyright_auth_ico_5" href="#" target="_blank">中国互联网举报中心</a>
+            <a class="copyright_auth_ico copyright_auth_ico_6" href="#" target="_blank">网络举报APP下载</a>
+        </p>
+    </div>
+</div>
+
+<!--<div id="add">-->
+<!--    <div class="row1">-->
+<!--        新增收货人信息<a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>-->
+<!--    </div>-->
+<!--    <form id="bigbox">-->
+<!--        <div id="one">-->
+<!--            <span>所在省</span>-->
+<!--            <input name="sheng" type="text">-->
+<!--        </div>-->
+<!--        <div class="twe">-->
+<!--            <span>所在市</span>-->
+<!--            <input name="shi" type="text">-->
+<!--        </div>-->
+<!--        <div class="twe">-->
+<!--            <span>所在区</span>-->
+<!--            <input name="qu" type="text">-->
+<!--        </div>-->
+<!--        <div class="twe">-->
+<!--            <span>收货人姓名</span>-->
+<!--            <input name="rname" type="text">-->
+<!--        </div>-->
+<!--        <div class="twe">-->
+<!--            <span>详细地址</span>-->
+<!--            <input name="addde" type="text">-->
+<!--        </div>-->
+<!--        <div class="twe">-->
+<!--            <span>收货人手机号</span>-->
+<!--            <input name="rphone" type="text">-->
+<!--        </div>-->
+<!--        <div class="twe">-->
+<!--            <input name="insert" id="infor" type="submit" value="保存收货人信息">-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+
+<script>
+    var userid = 1;
+    var temp_count = 0;
+    var temp_totalprice = 0;
+    var temp_cart;
+    var temp_addr;
+    var temp_pay = 2;
+    var temp_transport = 1;
+    var temp_orderid;
+    var temp_num = 1;
+    var username;
+
+    //获取cookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    if(getCookie("cookie_userid") != null){
+        userid = getCookie("cookie_userid");
+    }if(getCookie("cookie_username") != null){
+        username = getCookie("cookie_username");
+    }
+
+    //修改付款方式，默认1
+    $(function () {
+        $("#paytype1").click(function () {
+            if($("#paytype1").hasClass('paytype-no')){
+                $("#paytype1").removeClass('paytype-no');
+                $("#paytype1").addClass('paytype-yes');
+            }
+            if($("#paytype2").hasClass('paytype-yes')){
+                $("#paytype2").removeClass('paytype-yes');
+                $("#paytype2").addClass('paytype-no');
+            }
+            if($("#paytype3").hasClass('paytype-yes')){
+                $("#paytype3").removeClass('paytype-yes');
+                $("#paytype3").addClass('paytype-no');
+            }
+            if($("#paytype4").hasClass('paytype-yes')){
+                $("#paytype4").removeClass('paytype-yes');
+                $("#paytype4").addClass('paytype-no');
+            }
+            if($("#paytype5").hasClass('paytype-yes')){
+                $("#paytype5").removeClass('paytype-yes');
+                $("#paytype5").addClass('paytype-no');
+            }
+            if($("#paytype6").hasClass('paytype-yes')){
+                $("#paytype6").removeClass('paytype-yes');
+                $("#paytype6").addClass('paytype-no');
+            }
+            temp_pay = 1;
+            alert(temp_pay);
+        })
+        $("#paytype2").click(function () {
+            if($("#paytype2").hasClass('paytype-no')){
+                $("#paytype2").removeClass('paytype-no');
+                $("#paytype2").addClass('paytype-yes');
+            }
+            if($("#paytype1").hasClass('paytype-yes')){
+                $("#paytype1").removeClass('paytype-yes');
+                $("#paytype1").addClass('paytype-no');
+            }
+            if($("#paytype3").hasClass('paytype-yes')){
+                $("#paytype3").removeClass('paytype-yes');
+                $("#paytype3").addClass('paytype-no');
+            }
+            if($("#paytype4").hasClass('paytype-yes')){
+                $("#paytype4").removeClass('paytype-yes');
+                $("#paytype4").addClass('paytype-no');
+            }
+            if($("#paytype5").hasClass('paytype-yes')){
+                $("#paytype5").removeClass('paytype-yes');
+                $("#paytype5").addClass('paytype-no');
+            }
+            if($("#paytype6").hasClass('paytype-yes')){
+                $("#paytype6").removeClass('paytype-yes');
+                $("#paytype6").addClass('paytype-no');
+            }
+            temp_pay = 2;
+            alert(temp_pay);
+        })
+        $("#paytype3").click(function () {
+            if($("#paytype3").hasClass('paytype-no')){
+                $("#paytype3").removeClass('paytype-no');
+                $("#paytype3").addClass('paytype-yes');
+            }
+            if($("#paytype1").hasClass('paytype-yes')){
+                $("#paytype1").removeClass('paytype-yes');
+                $("#paytype1").addClass('paytype-no');
+            }
+            if($("#paytype2").hasClass('paytype-yes')){
+                $("#paytype2").removeClass('paytype-yes');
+                $("#paytype2").addClass('paytype-no');
+            }
+            if($("#paytype4").hasClass('paytype-yes')){
+                $("#paytype4").removeClass('paytype-yes');
+                $("#paytype4").addClass('paytype-no');
+            }
+            if($("#paytype5").hasClass('paytype-yes')){
+                $("#paytype5").removeClass('paytype-yes');
+                $("#paytype5").addClass('paytype-no');
+            }
+            if($("#paytype6").hasClass('paytype-yes')){
+                $("#paytype6").removeClass('paytype-yes');
+                $("#paytype6").addClass('paytype-no');
+            }
+            temp_pay = 3;
+            alert(temp_pay);
+        })
+        $("#paytype4").click(function () {
+            if($("#paytype4").hasClass('paytype-no')){
+                $("#paytype4").removeClass('paytype-no');
+                $("#paytype4").addClass('paytype-yes');
+            }
+            if($("#paytype1").hasClass('paytype-yes')){
+                $("#paytype1").removeClass('paytype-yes');
+                $("#paytype1").addClass('paytype-no');
+            }
+            if($("#paytype2").hasClass('paytype-yes')){
+                $("#paytype2").removeClass('paytype-yes');
+                $("#paytype2").addClass('paytype-no');
+            }
+            if($("#paytype3").hasClass('paytype-yes')){
+                $("#paytype3").removeClass('paytype-yes');
+                $("#paytype3").addClass('paytype-no');
+            }
+            if($("#paytype5").hasClass('paytype-yes')){
+                $("#paytype5").removeClass('paytype-yes');
+                $("#paytype5").addClass('paytype-no');
+            }
+            if($("#paytype6").hasClass('paytype-yes')){
+                $("#paytype6").removeClass('paytype-yes');
+                $("#paytype6").addClass('paytype-no');
+            }
+            temp_pay = 4;
+            alert(temp_pay);
+        })
+        $("#paytype5").click(function () {
+            if($("#paytype5").hasClass('paytype-no')){
+                $("#paytype5").removeClass('paytype-no');
+                $("#paytype5").addClass('paytype-yes');
+            }
+            if($("#paytype1").hasClass('paytype-yes')){
+                $("#paytype1").removeClass('paytype-yes');
+                $("#paytype1").addClass('paytype-no');
+            }
+            if($("#paytype2").hasClass('paytype-yes')){
+                $("#paytype2").removeClass('paytype-yes');
+                $("#paytype2").addClass('paytype-no');
+            }
+            if($("#paytype4").hasClass('paytype-yes')){
+                $("#paytype4").removeClass('paytype-yes');
+                $("#paytype4").addClass('paytype-no');
+            }
+            if($("#paytype3").hasClass('paytype-yes')){
+                $("#paytype3").removeClass('paytype-yes');
+                $("#paytype3").addClass('paytype-no');
+            }
+            if($("#paytype6").hasClass('paytype-yes')){
+                $("#paytype6").removeClass('paytype-yes');
+                $("#paytype6").addClass('paytype-no');
+            }
+            temp_pay = 5;
+            alert(temp_pay);
+        })
+        $("#paytype6").click(function () {
+            if($("#paytype6").hasClass('paytype-no')){
+                $("#paytype6").removeClass('paytype-no');
+                $("#paytype6").addClass('paytype-yes');
+            }
+            if($("#paytype1").hasClass('paytype-yes')){
+                $("#paytype1").removeClass('paytype-yes');
+                $("#paytype1").addClass('paytype-no');
+            }
+            if($("#paytype2").hasClass('paytype-yes')){
+                $("#paytype2").removeClass('paytype-yes');
+                $("#paytype2").addClass('paytype-no');
+            }
+            if($("#paytype4").hasClass('paytype-yes')){
+                $("#paytype4").removeClass('paytype-yes');
+                $("#paytype4").addClass('paytype-no');
+            }
+            if($("#paytype5").hasClass('paytype-yes')){
+                $("#paytype5").removeClass('paytype-yes');
+                $("#paytype5").addClass('paytype-no');
+            }
+            if($("#paytype3").hasClass('paytype-yes')){
+                $("#paytype3").removeClass('paytype-yes');
+                $("#paytype3").addClass('paytype-no');
+            }
+            temp_pay = 6;
+            alert(temp_pay);
+        })
+    })
+
+    //修改运输方式，默认1
+    $(function () {
+        $("#transporttype-1").click(function () {
+            if ($("#transporttype-1").hasClass('transporttype-no')){
+                $("#transporttype-1").removeClass('transporttype-no');
+                $("#transporttype-1").addClass('transporttype-yes');
+            }if ($("#transporttype-2").hasClass('transporttype-yes')){
+                $("#transporttype-2").removeClass('transporttype-yes');
+                $("#transporttype-2").addClass('transporttype-no');
+            }if ($("#transporttype-3").hasClass('transporttype-yes')){
+                $("#transporttype-3").removeClass('transporttype-yes');
+                $("#transporttype-3").addClass('transporttype-no');
+            }if ($("#transporttype-4").hasClass('transporttype-yes')){
+                $("#transporttype-4").removeClass('transporttype-yes');
+                $("#transporttype-4").addClass('transporttype-no');
+            }if ($("#transporttype-5").hasClass('transporttype-yes')){
+                $("#transporttype-5").removeClass('transporttype-yes');
+                $("#transporttype-5").addClass('transporttype-no');
+            }
+            temp_transport = 1;
+            alert(temp_transport);
+        })
+        $("#transporttype-2").click(function () {
+            if ($("#transporttype-2").hasClass('transporttype-no')){
+                $("#transporttype-2").removeClass('transporttype-no');
+                $("#transporttype-2").addClass('transporttype-yes');
+            }if ($("#transporttype-1").hasClass('transporttype-yes')){
+                $("#transporttype-1").removeClass('transporttype-yes');
+                $("#transporttype-1").addClass('transporttype-no');
+            }if ($("#transporttype-3").hasClass('transporttype-yes')){
+                $("#transporttype-3").removeClass('transporttype-yes');
+                $("#transporttype-3").addClass('transporttype-no');
+            }if ($("#transporttype-4").hasClass('transporttype-yes')){
+                $("#transporttype-4").removeClass('transporttype-yes');
+                $("#transporttype-4").addClass('transporttype-no');
+            }if ($("#transporttype-5").hasClass('transporttype-yes')){
+                $("#transporttype-5").removeClass('transporttype-yes');
+                $("#transporttype-5").addClass('transporttype-no');
+            }
+            temp_transport = 2;
+            alert(temp_transport);
+        })
+        $("#transporttype-3").click(function () {
+            if ($("#transporttype-3").hasClass('transporttype-no')){
+                $("#transporttype-3").removeClass('transporttype-no');
+                $("#transporttype-3").addClass('transporttype-yes');
+            }if ($("#transporttype-1").hasClass('transporttype-yes')){
+                $("#transporttype-1").removeClass('transporttype-yes');
+                $("#transporttype-1").addClass('transporttype-no');
+            }if ($("#transporttype-2").hasClass('transporttype-yes')){
+                $("#transporttype-2").removeClass('transporttype-yes');
+                $("#transporttype-2").addClass('transporttype-no');
+            }if ($("#transporttype-4").hasClass('transporttype-yes')){
+                $("#transporttype-4").removeClass('transporttype-yes');
+                $("#transporttype-4").addClass('transporttype-no');
+            }if ($("#transporttype-5").hasClass('transporttype-yes')){
+                $("#transporttype-5").removeClass('transporttype-yes');
+                $("#transporttype-5").addClass('transporttype-no');
+            }
+            temp_transport = 3;
+            alert(temp_transport);
+        })
+        $("#transporttype-4").click(function () {
+            if ($("#transporttype-4").hasClass('transporttype-no')){
+                $("#transporttype-4").removeClass('transporttype-no');
+                $("#transporttype-4").addClass('transporttype-yes');
+            }if ($("#transporttype-1").hasClass('transporttype-yes')){
+                $("#transporttype-1").removeClass('transporttype-yes');
+                $("#transporttype-1").addClass('transporttype-no');
+            }if ($("#transporttype-3").hasClass('transporttype-yes')){
+                $("#transporttype-3").removeClass('transporttype-yes');
+                $("#transporttype-3").addClass('transporttype-no');
+            }if ($("#transporttype-2").hasClass('transporttype-yes')){
+                $("#transporttype-2").removeClass('transporttype-yes');
+                $("#transporttype-2").addClass('transporttype-no');
+            }if ($("#transporttype-5").hasClass('transporttype-yes')){
+                $("#transporttype-5").removeClass('transporttype-yes');
+                $("#transporttype-5").addClass('transporttype-no');
+            }
+            temp_transport = 4;
+            alert(temp_transport);
+        })
+        $("#transporttype-5").click(function () {
+            if ($("#transporttype-5").hasClass('transporttype-no')){
+                $("#transporttype-5").removeClass('transporttype-no');
+                $("#transporttype-5").addClass('transporttype-yes');
+            }if ($("#transporttype-1").hasClass('transporttype-yes')){
+                $("#transporttype-1").removeClass('transporttype-yes');
+                $("#transporttype-1").addClass('transporttype-no');
+            }if ($("#transporttype-3").hasClass('transporttype-yes')){
+                $("#transporttype-3").removeClass('transporttype-yes');
+                $("#transporttype-3").addClass('transporttype-no');
+            }if ($("#transporttype-4").hasClass('transporttype-yes')){
+                $("#transporttype-4").removeClass('transporttype-yes');
+                $("#transporttype-4").addClass('transporttype-no');
+            }if ($("#transporttype-2").hasClass('transporttype-yes')){
+                $("#transporttype-2").removeClass('transporttype-yes');
+                $("#transporttype-2").addClass('transporttype-no');
+            }
+            temp_transport = 5;
+            alert(temp_transport);
+        })
+    })
+
+    //取网页信息
+    $(function () {
+        $.ajax({
+            url:"http://127.0.0.1:8080/api/getUserInfo",
+            type:"post",
+            dataType:"json",
+            data:{id:userid},
+            //获得用户姓名
+            success:function (data) {
+                var data1 = new Vue({
+                    el:'#username',
+                    data:{users:{}},
+                    created:function () {
+                        this.users = data;
+                    }
+                })
+            }
+        });
+        $.ajax({
+            url:"http://127.0.0.1:8080/api/order/commit/address",
+            type:"post",
+            dataType:"json",
+            data:{id:userid},
+            success:function (data) {
+                temp_addr = data;
+                var data2 = new Vue({
+                    el:'#third_2_2',
+                    data:{addr:{}},
+                    created:function () {
+                        this.addr = data;
+                    }
+                });
+                var data5 = new Vue({
+                    el:'#address-bottom',
+                    data:{addr:{}},
+                    created:function () {
+                        this.addr = data;
+                    }
+                })
+            }
+        });
+        $.ajax({
+            url:"http://127.0.0.1:8080/api/order/commit/info",
+            type:"post",
+            dataType:"json",
+            data:{userid:userid},
+            success:function (data) {
+                temp_num = data.length;
+                temp_cart = data;
+                //修改页面产品列表块高度
+                if(temp_num > 2){
+                    var m = temp_num * 130 + 20;
+                    $("#list-left").css("height","m");
+                    $("#list-right").css("height","m");
+                }
+                var data3 = new Vue({
+                    el:'#product-info',
+                    data:{products:[]},
+                    created:function () {
+                        this.products = data;
+                    },
+                })
+                for(var i = 0; i<data.length; i=i+1){
+                    temp_count = temp_count + parseInt(data[i].amount);
+                    temp_totalprice = temp_totalprice + parseFloat(parseInt(data[i].amount)*parseFloat(data[i].product_version.price));
+                }
+
+                var data7 = new Vue({
+                    el:'#totalcount',
+                    data:{totalamount:temp_count}
+                })
+
+                var data6 = new Vue({
+                    el:'#totalmoney',
+                    data:{totalcost: temp_totalprice},
+                })
+                var data8 = new Vue({
+                    el:'#warePriceId',
+                    data:{totalcost:temp_totalprice},
+                })
+            },
+            error:function () {
+                alert("系统错误！");
+            }
+        })
+    })
+
+    //提交订单
+    $("#submitorder").click(function () {
+        //定义两个json类
+        var order = function (user_id, address_id,pay_id,status_id,price,transport_id) {
+            this.user_id=user_id;
+            this.address_id=address_id;
+            this.pay_id=pay_id;
+            this.status_id=status_id;
+            this.price=price;
+            this.transport_id=transport_id;
+        };
+        var orderitem = function (order_id,product_id,version_id,amount,price) {
+            this.order_id = order_id;
+            this.product_id = product_id;
+            this.version_id = version_id;
+            this.amount = amount;
+            this.price = price;
+        }
+
+        //生成订单，获取订单号
+        var orders = new order(userid,1,temp_pay,1,temp_totalprice,temp_transport);
+        $.ajax({
+            url:"http://127.0.0.1:8080/api/order/createOrder",
+            type:"post",
+            data:JSON.stringify(orders),
+            dataType:"json",
+            contentType : "application/json",
+            success:function (data) {
+                if(data != null){
+                    alert("订单生成成功，请尽快支付！订单号为" + data);
+                    temp_orderid = data;
+                    for(var i=0; i<temp_cart.length; i++){
+                        var m = parseFloat(parseInt(temp_cart[i].amount)*parseFloat(temp_cart[i].product_version.price));
+                        var orderitems = new orderitem(temp_orderid,temp_cart[i].product_version.product_info.id,temp_cart[i].product_version.id,temp_cart[i].amount,m);
+                        $.ajax({
+                            url:"http://127.0.0.1:8080/api/order/createOrderItem",
+                            type:"post",
+                            data:JSON.stringify(orderitems),
+                            dataType:"json",
+                            contentType : "application/json",
+                            success:function (data) {
+                                alert("提交订单成功！");
+                                if(data == true){
+                                    //删除提交的购物车行
+                                    $.ajax({
+                                        url:"http://127.0.0.1:8080/api/order/deleteShopCart",
+                                        type:"post",
+                                        data:{userid:userid},
+                                        dataType:"json",
+                                        success:function (data) {
+                                            if(data == temp_cart.length){
+                                                alert("提交订单成功！");
+                                            }else{
+                                            }
+                                        }
+                                    })
+                                }else{
+                                    alert("系统错误！");
+                                }
+                                window.location.href="http://127.0.0.1:8080/html/search.html";
+                            }
+                        })
+                    }
+                }else {
+                    alert("系统错误...");
+                }
+            }
+        })
+    })
+
+    //获取cookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>
+
+</body>
+</html>

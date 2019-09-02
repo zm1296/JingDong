@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: dn123
+    url: jdbc:mysql://101.200.52.62:3306/JingDong
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:com/jd/mapper/*Mapper.xml
+  type-aliases-package: com.jd.entity
+
+#showSql
+logging:
+  level:
+    com:
+      jd:
+        mapper: debug

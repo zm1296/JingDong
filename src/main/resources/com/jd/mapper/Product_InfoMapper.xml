@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.mapper.Product_InfoMapper">
+  <resultMap id="Product_InfoResultMap" type="com.jd.enity.Product_Info">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+    <result column="min_price" jdbcType="DECIMAL" property="min_price" />
+    <result column="discount" jdbcType="VARCHAR" property="discount" />
+    <result column="warranty_data" jdbcType="DATE" property="warranty_data" />
+    <result column="status_id" jdbcType="INTEGER" property="status_id" />
+    <result column="big" jdbcType="INTEGER" property="big" />
+    <result column="small" jdbcType="INTEGER" property="small" />
+    <association property="sid_big" javaType="com.jd.enity.Product_BigClass">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="bname" jdbcType="VARCHAR" property="name" />
+    </association>
+    <association property="sid_small" javaType="com.jd.enity.Product_SmallClass">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="smname" jdbcType="VARCHAR" property="name" />
+      <result column="bigclass_id" jdbcType="INTEGER" property="bigclass_id" />
+    </association>
+    <association property="product_status" resultMap="Product_StatusResultMap"></association>
+  </resultMap>
+  <resultMap id="Product_StatusResultMap" type="com.jd.enity.Product_Status">
+    <result column="stname" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+<!--  <resultMap id="BigResultMap" type="com.jd.enity.Product_BigClass">-->
+<!--  </resultMap>-->
+<!--  <resultMap id="smallResultMap" type="com.jd.enity.Product_SmallClass">-->
+<!--  </resultMap>-->
+  <sql id="Base_Column_List">
+    id, name, title, create_time, min_price, discount, warranty_data, status_id,sid_big,sid_small
+  </sql>
+
+<!--获取所有对象的子对象没成功，有问题！！！！-->
+  <select id="getAll" resultMap="Product_InfoResultMap">
+<!-- select  p.id, p.name, p.title, p.create_time, p.min_price, p.discount, p.warranty_data, p.status_id,b.id,b.name,s.id,s.name,s.bigclass_id from Product_Info p ,Product_BigClass b,Product_SmallClass s
+  where p.sid_big=s.id and p.sid_small=s.id;-->
+select * from Product_Info p LEFT JOIN Product_BigClass b on  p.sid_big=b.id  LEFT JOIN Product_SmallClass s on p.sid_small=s.id ;
+
+ </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="Product_InfoResultMap">
+    select pin.*,pbi.name as bname,pst.name as stname,psm.name as smname
+    from Product_Info pin,Product_Status pst,Product_BigClass pbi,Product_SmallClass psm
+    where pin.status_id = pst.id and pin.sid_big = pbi.id and pin.sid_small = psm.id and pin.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getAllProduct" parameterType="java.lang.Integer" resultMap="Product_InfoResultMap">
+    select pin.id as pid,pin.name,pin.title,pin.create_time,pin.min_price,pin.discount,pin.warranty_data, pst.name as psname,
+    pim.url,pim.descrip,pve.name as pvname,pve.price,pve.stock,pve.purprice,pve.weight,pbi.name as pbname,psm.name as pmname
+    from Product_Info pin,Product_Status pst,Product_Images pim,Product_Version pve,Product_BigClass pbi,Product_SmallClass psm
+    where pin.status_id = pst.id and pve.product_id = pin.id and pim.product_id = pin.id and pin.sid_big = pbi.id and pin.sid_small = psm.id
+    and pin.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getComment" parameterType="java.lang.Integer" resultMap="Product_InfoResultMap">
+    SELECT cin.content,uin.name as uname
+    FROM Comment_Info cin,User_Info uin,Product_Info pin
+    where cin.user_id = uin.id and cin.product_id = pin.id and pin.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectPInfoByKey" parameterType="java.lang.String" resultMap="Product_InfoResultMap">
+    <!--   <bind name="title_key" value="'%'+_key+'%'" />-->
+    select
+    *
+    from Product_Info
+    where title like concat('%',#{key},'%')
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Product_Info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jd.enity.Product_Info">
+    insert into Product_Info (id, name, title, 
+      create_time, min_price, discount, 
+      warranty_data, status_id)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{create_time,jdbcType=TIMESTAMP}, #{min_price,jdbcType=DECIMAL}, #{discount,jdbcType=VARCHAR}, 
+      #{warranty_data,jdbcType=DATE}, #{status_id,jdbcType=INTEGER})
+  </insert>
+<!--  <insert id="insertSelective" parameterType="com.jd.enity.Product_Info">-->
+<!--    insert into Product_Info-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="id != null">-->
+<!--        id,-->
+<!--      </if>-->
+<!--      <if test="name != null">-->
+<!--        name,-->
+<!--      </if>-->
+<!--      <if test="title != null">-->
+<!--        title,-->
+<!--      </if>-->
+<!--      <if test="create_time != null">-->
+<!--        create_time,-->
+<!--      </if>-->
+<!--      <if test="min_price != null">-->
+<!--        min_price,-->
+<!--      </if>-->
+<!--      <if test="discount != null">-->
+<!--        discount,-->
+<!--      </if>-->
+<!--      <if test="warranty_data != null">-->
+<!--        warranty_data,-->
+<!--      </if>-->
+<!--      <if test="status_id != null">-->
+<!--        status_id,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="id != null">-->
+<!--        #{id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="name != null">-->
+<!--        #{name,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="title != null">-->
+<!--        #{title,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="create_time != null">-->
+<!--        #{create_time,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="min_price != null">-->
+<!--        #{min_price,jdbcType=DECIMAL},-->
+<!--      </if>-->
+<!--      <if test="discount != null">-->
+<!--        #{discount,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="warranty_data != null">-->
+<!--        #{warranty_data,jdbcType=DATE},-->
+<!--      </if>-->
+<!--      <if test="status_id != null">-->
+<!--        #{status_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.Product_Info">-->
+<!--    update Product_Info-->
+<!--    <set>-->
+<!--      <if test="name != null">-->
+<!--        name = #{name,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="title != null">-->
+<!--        title = #{title,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="create_time != null">-->
+<!--        create_time = #{create_time,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="min_price != null">-->
+<!--        min_price = #{min_price,jdbcType=DECIMAL},-->
+<!--      </if>-->
+<!--      <if test="discount != null">-->
+<!--        discount = #{discount,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="warranty_data != null">-->
+<!--        warranty_data = #{warranty_data,jdbcType=DATE},-->
+<!--      </if>-->
+<!--      <if test="status_id != null">-->
+<!--        status_id = #{status_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.jd.enity.Product_Info">-->
+<!--    update Product_Info-->
+<!--    set name = #{name,jdbcType=VARCHAR},-->
+<!--      title = #{title,jdbcType=VARCHAR},-->
+<!--      create_time = #{create_time,jdbcType=TIMESTAMP},-->
+<!--      min_price = #{min_price,jdbcType=DECIMAL},-->
+<!--      discount = #{discount,jdbcType=VARCHAR},-->
+<!--      warranty_data = #{warranty_data,jdbcType=DATE},-->
+<!--      status_id = #{status_id,jdbcType=INTEGER}-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

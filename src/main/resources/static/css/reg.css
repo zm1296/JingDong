@@ -1,0 +1,263 @@
+.header
+{
+    height: 110px;
+    background: white;
+    box-shadow: 5px 0px 8px #4e555b;
+}
+.logo-con
+{
+    width: 1210px;
+    height: 76px;
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+}
+.logo
+{
+    width: 160px;
+    height: 50px;
+    float: left;
+    margin-top: 24px;
+    background-image: url("../images/reg/logo_reg.png");
+}
+.logo-title
+{
+    width: 96px;
+    height: 34px;
+    float: left;
+    margin-top:34px ;
+    font-size: 24px;
+
+}
+.have-account {
+    float: right;
+    width: 144px;
+    height: 21px;
+    font-size: 16px;
+    margin-top: 55px;
+}
+.contaner
+{
+    width: 1210px;
+    height: 470px;
+    margin: 0 auto;
+    margin-top: 85px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+
+}
+.propress-bar
+{
+    width: 430px;
+    height: 58px;
+    margin: 80px auto 0;
+    margin-top: 80px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    font-size: 14px;
+    background-image: url("../images/reg/toptop.png");
+}
+.pro-step {
+    width: 60px;
+    height: 55px;
+    float: left;
+    font-size:12px ;
+    text-align: center;
+}
+.pro-step .step-index {
+    margin: 0 auto;
+    display: block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    background-position: -45px -200px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ccc;
+}
+.step-desc{
+    width: 60px;
+    height: 21px;
+}
+.pro-lines {
+    width: 124px;
+    height: 10px;
+    float :left;
+    margin-top: 10px;
+    background-image:url("../images/reg/pro_line.png") ;
+}
+.person-pro-step3{
+    float: right;
+}
+#step1-wrap
+{
+    margin: 80px auto 0;
+    margin-top: 80px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    width: 400px;
+    height: 246px;
+    position: relative;
+    left: 20px;
+}
+.item-phone-wrap {
+    height: 86px;
+    position: relative;
+    z-index: 2;
+}
+#select-country {
+    width: 108px;
+    height: 52px;
+    float: left;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    border:5px dashed #000
+}
+#tem-input-wrap
+{
+    float: left;
+    width: 290px;
+    height: 52px;
+}
+#form-phone
+{
+    width: 280px;
+    height: 52px;
+}
+.form-item {
+    position: relative;
+    border: solid 1px #ddd;
+    width: 398px;
+    height: 52px;
+    font-size: 14px;
+    text-align: center;
+
+}
+.phonecode-left
+{   float: left;
+    width: 300px;
+    height: 30px;
+}
+#phoneCode
+{
+    width: 200px;
+    height: 30px;
+}
+#getPhoneCode
+{
+    float: left;
+    width: 50px;
+    height: 30px;
+}
+.audio-tip
+{
+    float: left;
+    text-align: center;
+}
+.btn-register {
+    width: 100%;
+    height: 54px;
+    line-height: 54px;
+    text-align: center;
+    color: #fff;
+    background: #e2231a;
+    border: 0;
+    font-size: 16px;
+    font-family: "Microsoft YaHei","Hiragino Sans GB";
+    cursor: pointer;
+}
+.form-item-phonecode
+{
+
+}
+.slide-authCode-wraper {
+
+    line-height: 1.5;
+    text-align: left;
+    position: absolute;
+    left: 0;
+    bottom: 65px;
+    font-family: "Microsoft YaHei";
+    background-color: #fff;
+    cursor: default;
+    z-index: 110;
+    box-shadow: 0 0 2px 2px #eee;
+    border: 1px solid #eee;
+    width: 364px;
+    height: 216.5px;
+    padding: 12px 12px 12px 20px;
+    display: none;
+}
+.slide-authCode-wraper .close {
+    cursor: pointer;
+    z-index: 100;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-image: url(//misc.360buyimg.com/user/reg/1.0.0/widget/personal-reg-1130/i/x.png);
+}
+.JDValidate-wrap .JDJRV-img-panel .JDJRV-lable-refresh {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 59%;
+    float: left;
+}
+.JDValidate-wrap .JDJRV-img-panel .JDJRV-img-refresh span {
+    float: right;
+}
+.JDValidate-wrap .JDJRV-img-panel .JDJRV-img-refresh div {
+    background: url(https://ivs.jd.com/slide/i/refresh2.png) center center no-repeat;
+    width: 20px;
+    height: 20px;
+    float: right;
+}
+.JDValidate-wrap .JDJRV-img-panel .JDJRV-smallimg img {
+    width: 100%;
+}
+#reg_1
+{
+    width: 1210px;
+    height: 500px;
+    text-align: center;
+    display: none;
+}
+.item-phonecode-wrap
+{
+    display: none;
+}
+
+#reg_1 label
+{
+    font-size: 15px;
+
+    display:inline-block;
+    width: 10em; margin-right: 1em;
+    text-align: right;
+}
+#reg_12
+{
+    width: 600px;
+    position: absolute;
+    left: 350px;
+    top: 270px;
+    border:2px solid;
+    border-radius:25px;
+}
+#insert_logo
+{
+    width: 150px;
+    height: 60px;
+    position: absolute;
+    left: 350px;
+    top: 270px;
+    background-image: url("../images/reg/logo_reg.png");
+}

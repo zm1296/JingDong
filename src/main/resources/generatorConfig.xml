@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+<!--	-->
+
+	<!-- 配置文件路径 -->
+	<properties resource="mybatis.properties" />
+
+	<!--数据库驱动包路径 -->
+	<classPathEntry location="${drive.class.path}" />
+
+	<context id="MySQLTables" targetRuntime="MyBatis3">
+		<!--关闭注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" /><!-- 是否取消注释 -->
+			<property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳 -->
+		</commentGenerator>
+
+		<!--数据库连接信息 -->
+		<jdbcConnection driverClass="${jdbc.driver}"
+			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
+		</jdbcConnection>
+
+		<!--生成的model 包路径 -->
+		<javaModelGenerator targetPackage="${model.package}"
+			targetProject="${target.project.java}">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!--生成xml mapper文件 路径 -->
+		<sqlMapGenerator targetPackage="${xml.mapper.package}"
+			targetProject="${target.project.resources}">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 生成的Dao接口 的包路径 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="${dao.package}" targetProject="${target.project.java}">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!--对应数据库表名 -->
+        <table tableName="User_Info" domainObjectName="User_Info"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="User_ShopCart" domainObjectName="User_ShopCart"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="User_Collection" domainObjectName="User_Collection"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Product_Version" domainObjectName="Product_Version"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Product_Status" domainObjectName="Product_Status"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Product_SmallClass" domainObjectName="Product_SmallClass"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Product_BigClass" domainObjectName="Product_BigClass"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Product_Info" domainObjectName="Product_Info"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Product_Images" domainObjectName="Product_Images"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Order_Transport" domainObjectName="Order_Transport"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Order_PayType" domainObjectName="Order_PayType"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Order_Status" domainObjectName="Order_Status"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Order_Item" domainObjectName="Order_Item"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Order_Info" domainObjectName="Order_Info"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Comment_Info" domainObjectName="Comment_Info"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Address_Province" domainObjectName="Address_Province"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Address_Info" domainObjectName="Address_Info"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Address_City" domainObjectName="Address_City"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+        <table tableName="Address_Area" domainObjectName="Address_Area"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true" />
+        </table>
+
+
+
+<!--		    <table tableName="msgboard" domainObjectName="Msg"-->
+<!--			enableCountByExample="false" enableDeleteByExample="false"-->
+<!--			enableSelectByExample="false" enableUpdateByExample="false">-->
+<!--			如果设置为true，生成的entity类会直接使用column本身的名字，而不会再使用驼峰命名方法，比如BORN_DATE_Time，生成的属性名字就是BORN_DATE,而不会是bornDateTime&ndash;&gt;-->
+<!--			<property name="useActualColumnNames" value="true" />-->
+<!--			忽略列，不生成bean 字段&ndash;&gt;-->
+<!--			<ignoreColumn column="FRED" />-->
+<!--			指定列的java数据类型&ndash;&gt;-->
+<!--			<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
+
+<!--		<table tableName="teachers" domainObjectName="Teacher"-->
+<!--			enableCountByExample="false" enableDeleteByExample="false"-->
+<!--			enableSelectByExample="false" enableUpdateByExample="false">-->
+<!--			<property name="useActualColumnNames" value="true" />-->
+<!--		</table>-->
+<!--		<table tableName="students" domainObjectName="Student"-->
+<!--			enableCountByExample="false" enableDeleteByExample="false"-->
+<!--			enableSelectByExample="false" enableUpdateByExample="false">-->
+<!--			<property name="useActualColumnNames" value="true" />-->
+<!--		</table>-->
+<!--		<table tableName="classes" domainObjectName="Classes"-->
+<!--			enableCountByExample="false" enableDeleteByExample="false"-->
+<!--			enableSelectByExample="false" enableUpdateByExample="false">-->
+<!--			<property name="useActualColumnNames" value="true" />-->
+<!--		</table>-->
+	</context>
+</generatorConfiguration>

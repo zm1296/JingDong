@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.mapper.User_InfoMapper">
+  <resultMap id="BaseResultMap" type="com.jd.enity.User_Info">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="vip" jdbcType="INTEGER" property="vip" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="create_date" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="defaultaddress" jdbcType="VARCHAR" property="defaultaddress" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, email, phone, password, idcard, birthday, sex, vip, create_date, status, 
+    defaultaddress
+  </sql>
+<!--  <select id="have">-->
+<!--    -->
+<!--  </select>-->
+
+  <select id="checkByName_Password" parameterType="com.jd.enity.User_Info" resultMap="BaseResultMap">
+    select *   from User_Info where (name=#{name} and password=#{password}) or (email=#{name} and password=#{password})  or (phone=#{name} and password=#{password});
+  </select>
+  <select id="select_id" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, name, email, phone, password, idcard, birthday, sex, vip, create_date, status,
+    defaultaddress from User_Info where id= #{id}
+
+  </select>
+<!--  获取所有用户信息-->
+  <select id="getAllUser" resultMap="BaseResultMap">
+    select * from User_Info;
+  </select>
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from User_Info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectUserid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from User_Info where email = #{email,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from User_Info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jd.enity.User_Info">
+    insert into User_Info (name,email,phone,password,idcard,sex,vip,status,defaultaddress) values (#{name,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{idcard,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR},#{vip,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{defaultaddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jd.enity.User_Info">
+    insert into User_Info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="idcard != null">
+        idcard,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="vip != null">
+        vip,
+      </if>
+      <if test="create_date != null">
+        create_date,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="defaultaddress != null">
+        defaultaddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="vip != null">
+        #{vip,jdbcType=INTEGER},
+      </if>
+      <if test="create_date != null">
+        #{create_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="defaultaddress != null">
+        #{defaultaddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.User_Info">
+    update User_Info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="vip != null">
+        vip = #{vip,jdbcType=INTEGER},
+      </if>
+      <if test="create_date != null">
+        create_date = #{create_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="defaultaddress != null">
+        defaultaddress = #{defaultaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jd.enity.User_Info">
+    update User_Info
+    set name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      sex = #{sex,jdbcType=VARCHAR},
+      vip = #{vip,jdbcType=INTEGER},
+      create_date = #{create_date,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      defaultaddress = #{defaultaddress,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <resultMap id="User_InfoResultMap" type="com.jd.enity.User_Info">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="vip" jdbcType="INTEGER" property="vip" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="create_date" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+<!--    <association property="defaultaddress" resultMap="Address_InfoResultMap"></association>-->
+<!--    <result column="defaultaddress" property="defaultaddress" jdbcType="VARCHAR" />-->
+  </resultMap>
+    <select id="getAllUser_Info" resultMap="User_InfoResultMap">
+        select * from User_Info;
+--         select * from User_Info u, Address_Info a, Address_Province ap, Address_City ac, Address_Area aa where u.defaultaddress = a.id and a.province = ap.a_pid and a.city = ac.a_cid and a.area = aa.a_areaid;
+    </select>
+
+  <update id="updateaddress_id" >
+    update User_Info set defaultaddress = #{param1,jdbcType=INTEGER} where phone = #{param2,jdbcType=VARCHAR}
+  </update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  <sql id="Base_Column_List" >-->
+<!--    id, name, email, phone, password, idcard, birthday, sex, vip, create_date, status, -->
+<!--    defaultaddress-->
+<!--  </sql>-->
+<!--  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from User_Info-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >-->
+<!--    delete from User_Info-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.jd.enity.User_Info" >-->
+<!--    insert into User_Info (id, name, email, -->
+<!--      phone, password, idcard, -->
+<!--      birthday, sex, vip, create_date, -->
+<!--      status, defaultaddress)-->
+<!--    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, -->
+<!--      #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, -->
+<!--      #{birthday,jdbcType=DATE}, #{sex,jdbcType=VARCHAR}, #{vip,jdbcType=INTEGER}, #{create_date,jdbcType=TIMESTAMP}, -->
+<!--      #{status,jdbcType=INTEGER}, #{defaultaddress,jdbcType=VARCHAR})-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" parameterType="com.jd.enity.User_Info" >-->
+<!--    insert into User_Info-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--        id,-->
+<!--      </if>-->
+<!--      <if test="name != null" >-->
+<!--        name,-->
+<!--      </if>-->
+<!--      <if test="email != null" >-->
+<!--        email,-->
+<!--      </if>-->
+<!--      <if test="phone != null" >-->
+<!--        phone,-->
+<!--      </if>-->
+<!--      <if test="password != null" >-->
+<!--        password,-->
+<!--      </if>-->
+<!--      <if test="idcard != null" >-->
+<!--        idcard,-->
+<!--      </if>-->
+<!--      <if test="birthday != null" >-->
+<!--        birthday,-->
+<!--      </if>-->
+<!--      <if test="sex != null" >-->
+<!--        sex,-->
+<!--      </if>-->
+<!--      <if test="vip != null" >-->
+<!--        vip,-->
+<!--      </if>-->
+<!--      <if test="create_date != null" >-->
+<!--        create_date,-->
+<!--      </if>-->
+<!--      <if test="status != null" >-->
+<!--        status,-->
+<!--      </if>-->
+<!--      <if test="defaultaddress != null" >-->
+<!--        defaultaddress,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--        #{id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="name != null" >-->
+<!--        #{name,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="email != null" >-->
+<!--        #{email,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="phone != null" >-->
+<!--        #{phone,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="password != null" >-->
+<!--        #{password,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="idcard != null" >-->
+<!--        #{idcard,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="birthday != null" >-->
+<!--        #{birthday,jdbcType=DATE},-->
+<!--      </if>-->
+<!--      <if test="sex != null" >-->
+<!--        #{sex,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="vip != null" >-->
+<!--        #{vip,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="create_date != null" >-->
+<!--        #{create_date,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="status != null" >-->
+<!--        #{status,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="defaultaddress != null" >-->
+<!--        #{defaultaddress,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.User_Info" >-->
+<!--    update User_Info-->
+<!--    <set >-->
+<!--      <if test="name != null" >-->
+<!--        name = #{name,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="email != null" >-->
+<!--        email = #{email,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="phone != null" >-->
+<!--        phone = #{phone,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="password != null" >-->
+<!--        password = #{password,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="idcard != null" >-->
+<!--        idcard = #{idcard,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="birthday != null" >-->
+<!--        birthday = #{birthday,jdbcType=DATE},-->
+<!--      </if>-->
+<!--      <if test="sex != null" >-->
+<!--        sex = #{sex,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="vip != null" >-->
+<!--        vip = #{vip,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="create_date != null" >-->
+<!--        create_date = #{create_date,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="status != null" >-->
+<!--        status = #{status,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="defaultaddress != null" >-->
+<!--        defaultaddress = #{defaultaddress,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.jd.enity.User_Info" >-->
+<!--    update User_Info-->
+<!--    set name = #{name,jdbcType=VARCHAR},-->
+<!--      email = #{email,jdbcType=VARCHAR},-->
+<!--      phone = #{phone,jdbcType=VARCHAR},-->
+<!--      password = #{password,jdbcType=VARCHAR},-->
+<!--      idcard = #{idcard,jdbcType=VARCHAR},-->
+<!--      birthday = #{birthday,jdbcType=DATE},-->
+<!--      sex = #{sex,jdbcType=VARCHAR},-->
+<!--      vip = #{vip,jdbcType=INTEGER},-->
+<!--      create_date = #{create_date,jdbcType=TIMESTAMP},-->
+<!--      status = #{status,jdbcType=INTEGER},-->
+<!--      defaultaddress = #{defaultaddress,jdbcType=VARCHAR}-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

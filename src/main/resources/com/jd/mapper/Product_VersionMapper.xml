@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.mapper.Product_VersionMapper">
+  <resultMap id="Product_VersionResultMap" type="com.jd.enity.Product_Version">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+<!--    <result column="product_id" jdbcType="INTEGER" property="product_id" />-->
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="purprice" jdbcType="DECIMAL" property="purprice" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <association property="product_info" resultMap="Product_InfoResultMap"></association>
+  </resultMap>
+  <resultMap id="Product_InfoResultMap" type="com.jd.enity.Product_Info">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+    <result column="min_price" jdbcType="DECIMAL" property="min_price" />
+    <result column="discount" jdbcType="VARCHAR" property="discount" />
+    <result column="warranty_data" jdbcType="DATE" property="warranty_data" />
+    <result column="status_id" jdbcType="INTEGER" property="status_id" />
+    <association property="product_images" resultMap="Product_ImagesResultMap"></association>
+  </resultMap>
+
+  <resultMap id="Product_ImagesResultMap" type="com.jd.enity.Product_Images">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_id" jdbcType="INTEGER" property="product_id" />
+    <result column="version_id" jdbcType="INTEGER" property="version_id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="descrip" jdbcType="VARCHAR" property="descrip" />
+  </resultMap>
+  <resultMap id="ProVersionResultMap" type="com.jd.enity.Product_Version">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="product_id" jdbcType="INTEGER" property="product_id" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="purprice" jdbcType="DECIMAL" property="purprice" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, product_id, price, stock, purprice, weight
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="Product_VersionResultMap">
+    select pv.id, pv.name, pv.price, pv.weight, p.id, p.name, p.title, pi.url from Product_Version pv, Product_Info p, Product_Images pi where pv.id = #{id,jdbcType=INTEGER} and pv.product_id = p.id and pi.product_id = p.id
+  </select>
+  <select id="getProductVersion" parameterType="java.lang.Integer" resultMap="ProVersionResultMap">
+  select * from Product_Version pv where pv.product_id = #{id,jdbcType=INTEGER}
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Product_Version
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jd.enity.Product_Version">
+    insert into Product_Version (id, name, product_id, 
+      price, stock, purprice, 
+      weight)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{product_id,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, #{purprice,jdbcType=DECIMAL}, 
+      #{weight,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jd.enity.Product_Version">
+    insert into Product_Version
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="product_id != null">
+        product_id,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="purprice != null">
+        purprice,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="product_id != null">
+        #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="purprice != null">
+        #{purprice,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.Product_Version">
+    update Product_Version
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="product_id != null">
+        product_id = #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="purprice != null">
+        purprice = #{purprice,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jd.enity.Product_Version">
+    update Product_Version
+    set name = #{name,jdbcType=VARCHAR},
+      product_id = #{product_id,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      purprice = #{purprice,jdbcType=DECIMAL},
+      weight = #{weight,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<!--  <resultMap id="BaseResultMap" type="com.jd.enity.Product_Version" >-->
+<!--    <id column="id" property="id" jdbcType="INTEGER" />-->
+<!--    <result column="name" property="name" jdbcType="VARCHAR" />-->
+<!--    <result column="product_id" property="product_id" jdbcType="INTEGER" />-->
+<!--    <result column="price" property="price" jdbcType="DECIMAL" />-->
+<!--    <result column="stock" property="stock" jdbcType="INTEGER" />-->
+<!--    <result column="purprice" property="purprice" jdbcType="DECIMAL" />-->
+<!--    <result column="weight" property="weight" jdbcType="INTEGER" />-->
+<!--  </resultMap>-->
+<!--  <sql id="Base_Column_List" >-->
+<!--    id, name, product_id, price, stock, purprice, weight-->
+<!--  </sql>-->
+<!--  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from Product_Version-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >-->
+<!--    delete from Product_Version-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.jd.enity.Product_Version" >-->
+<!--    insert into Product_Version (id, name, product_id, -->
+<!--      price, stock, purprice, -->
+<!--      weight)-->
+<!--    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{product_id,jdbcType=INTEGER}, -->
+<!--      #{price,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, #{purprice,jdbcType=DECIMAL}, -->
+<!--      #{weight,jdbcType=INTEGER})-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" parameterType="com.jd.enity.Product_Version" >-->
+<!--    insert into Product_Version-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--        id,-->
+<!--      </if>-->
+<!--      <if test="name != null" >-->
+<!--        name,-->
+<!--      </if>-->
+<!--      <if test="product_id != null" >-->
+<!--        product_id,-->
+<!--      </if>-->
+<!--      <if test="price != null" >-->
+<!--        price,-->
+<!--      </if>-->
+<!--      <if test="stock != null" >-->
+<!--        stock,-->
+<!--      </if>-->
+<!--      <if test="purprice != null" >-->
+<!--        purprice,-->
+<!--      </if>-->
+<!--      <if test="weight != null" >-->
+<!--        weight,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--        #{id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="name != null" >-->
+<!--        #{name,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="product_id != null" >-->
+<!--        #{product_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="price != null" >-->
+<!--        #{price,jdbcType=DECIMAL},-->
+<!--      </if>-->
+<!--      <if test="stock != null" >-->
+<!--        #{stock,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="purprice != null" >-->
+<!--        #{purprice,jdbcType=DECIMAL},-->
+<!--      </if>-->
+<!--      <if test="weight != null" >-->
+<!--        #{weight,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.Product_Version" >-->
+<!--    update Product_Version-->
+<!--    <set >-->
+<!--      <if test="name != null" >-->
+<!--        name = #{name,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="product_id != null" >-->
+<!--        product_id = #{product_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="price != null" >-->
+<!--        price = #{price,jdbcType=DECIMAL},-->
+<!--      </if>-->
+<!--      <if test="stock != null" >-->
+<!--        stock = #{stock,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="purprice != null" >-->
+<!--        purprice = #{purprice,jdbcType=DECIMAL},-->
+<!--      </if>-->
+<!--      <if test="weight != null" >-->
+<!--        weight = #{weight,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.jd.enity.Product_Version" >-->
+<!--    update Product_Version-->
+<!--    set name = #{name,jdbcType=VARCHAR},-->
+<!--      product_id = #{product_id,jdbcType=INTEGER},-->
+<!--      price = #{price,jdbcType=DECIMAL},-->
+<!--      stock = #{stock,jdbcType=INTEGER},-->
+<!--      purprice = #{purprice,jdbcType=DECIMAL},-->
+<!--      weight = #{weight,jdbcType=INTEGER}-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.mapper.Product_ImagesMapper">
+  <resultMap id="Product_ImagesResultMap" type="com.jd.enity.Product_Images">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_id" jdbcType="INTEGER" property="product_id" />
+    <result column="version_id" jdbcType="INTEGER" property="version_id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="descrip" jdbcType="VARCHAR" property="descrip" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, product_id, version_id, url, descrip
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="Product_ImagesResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Product_Images
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getImgByProId" parameterType="java.lang.Integer" resultMap="Product_ImagesResultMap">
+  select * from Product_Images pi where pi.product_id = #{id,jdbcType=INTEGER}
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Product_Images
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jd.enity.Product_Images">
+    insert into Product_Images (id, product_id, version_id, 
+      url, descrip)
+    values (#{id,jdbcType=INTEGER}, #{product_id,jdbcType=INTEGER}, #{version_id,jdbcType=INTEGER}, 
+      #{url,jdbcType=VARCHAR}, #{descrip,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jd.enity.Product_Images">
+    insert into Product_Images
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="product_id != null">
+        product_id,
+      </if>
+      <if test="version_id != null">
+        version_id,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="descrip != null">
+        descrip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="product_id != null">
+        #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="version_id != null">
+        #{version_id,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="descrip != null">
+        #{descrip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.Product_Images">
+    update Product_Images
+    <set>
+      <if test="product_id != null">
+        product_id = #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="version_id != null">
+        version_id = #{version_id,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="descrip != null">
+        descrip = #{descrip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jd.enity.Product_Images">
+    update Product_Images
+    set product_id = #{product_id,jdbcType=INTEGER},
+      version_id = #{version_id,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      descrip = #{descrip,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<!--  <resultMap id="BaseResultMap" type="com.jd.enity.Product_Images" >-->
+<!--    <id column="id" property="id" jdbcType="INTEGER" />-->
+<!--    <result column="product_id" property="product_id" jdbcType="INTEGER" />-->
+<!--    <result column="version_id" property="version_id" jdbcType="INTEGER" />-->
+<!--    <result column="url" property="url" jdbcType="VARCHAR" />-->
+<!--    <result column="descrip" property="descrip" jdbcType="VARCHAR" />-->
+<!--  </resultMap>-->
+<!--  <sql id="Base_Column_List" >-->
+<!--    id, product_id, version_id, url, descrip-->
+<!--  </sql>-->
+<!--  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from Product_Images-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >-->
+<!--    delete from Product_Images-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.jd.enity.Product_Images" >-->
+<!--    insert into Product_Images (id, product_id, version_id, -->
+<!--      url, descrip)-->
+<!--    values (#{id,jdbcType=INTEGER}, #{product_id,jdbcType=INTEGER}, #{version_id,jdbcType=INTEGER}, -->
+<!--      #{url,jdbcType=VARCHAR}, #{descrip,jdbcType=VARCHAR})-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" parameterType="com.jd.enity.Product_Images" >-->
+<!--    insert into Product_Images-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--        id,-->
+<!--      </if>-->
+<!--      <if test="product_id != null" >-->
+<!--        product_id,-->
+<!--      </if>-->
+<!--      <if test="version_id != null" >-->
+<!--        version_id,-->
+<!--      </if>-->
+<!--      <if test="url != null" >-->
+<!--        url,-->
+<!--      </if>-->
+<!--      <if test="descrip != null" >-->
+<!--        descrip,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--        #{id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="product_id != null" >-->
+<!--        #{product_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="version_id != null" >-->
+<!--        #{version_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="url != null" >-->
+<!--        #{url,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="descrip != null" >-->
+<!--        #{descrip,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.jd.enity.Product_Images" >-->
+<!--    update Product_Images-->
+<!--    <set >-->
+<!--      <if test="product_id != null" >-->
+<!--        product_id = #{product_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="version_id != null" >-->
+<!--        version_id = #{version_id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="url != null" >-->
+<!--        url = #{url,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="descrip != null" >-->
+<!--        descrip = #{descrip,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.jd.enity.Product_Images" >-->
+<!--    update Product_Images-->
+<!--    set product_id = #{product_id,jdbcType=INTEGER},-->
+<!--      version_id = #{version_id,jdbcType=INTEGER},-->
+<!--      url = #{url,jdbcType=VARCHAR},-->
+<!--      descrip = #{descrip,jdbcType=VARCHAR}-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

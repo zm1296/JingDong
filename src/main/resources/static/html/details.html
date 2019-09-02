@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情</title>
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/details.css" rel="stylesheet">
+    <link href="../css/footer.css" rel="stylesheet">
+    <script src="../script/jquery-3.4.1.min.js"></script>
+    <script src="../script/vue.min.js"></script>
+</head>
+<body>
+<div id="shortcut">
+    <div class="w">
+        <ul class="fl">
+            <li id="ttbar-home">
+                <i class="iconfont"></i>
+                <a>京东首页</a>
+            </li>
+            <li id="ttbar-mycity" class="dorpdown">
+                <div class="dt cw-icon"><i class="iconfont"></i><span>福建</span></div>
+            </li>
+        </ul>
+        <ul class="fr">
+            <li class="fore1" id="ttbar-login"><span id="user_name">{{user_name}}</span></li>
+            <li class="spacer"></li>
+            <li class="fore2 dt"><a>我的订单</a></li>
+            <li class="spacer"></li>
+            <li class="fore3 dt dorpdown cw-icon"><a>我的京东</a><i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="fore2 dt"><a>京东会员</a></li>
+            <li class="spacer"></li>
+            <li class="fore3 dt dorpdown cw-icon"><a>企业采购</a><i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="fore3 dt dorpdown cw-icon"><a>客户服务</a><i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="fore3 dt dorpdown cw-icon"><a>网站导航</a><i class="iconfont"></i></li>
+            <li class="spacer"></li>
+            <li class="fore2 dt"><a>手机京东</a></li>
+        </ul>
+    </div>
+</div>
+<div class="w">
+    <div id="logo">
+        <a class="logo"></a>
+    </div>
+    <div id="search">
+        <div class="form">
+            <input type="text" class="text">
+            <button class="button cw-icon">搜全站</button>
+            <button class="button button01">搜本店</button>
+        </div>
+    </div>
+    <div id="settleup" class="dorpdown">
+        <div class="cw-icon">
+            <i class="ci-left"></i>
+            <i class="ci-right">&gt;</i>
+            <i class="ci-count">0</i>
+            <a href="http://127.0.0.1:8080/html/shopcart.html">我的购物车</a>
+        </div>
+    </div>
+    <div id="hotwords">
+        <a>游戏手机</a>
+        <a>荣耀</a>
+        <a>华为</a>
+        <a>oppo</a>
+        <a>vivo</a>
+        <a>锤子手机</a>
+        <a>360手机</a>
+    </div>
+</div>
+<div id="shop-head">
+    <!--    <div class="sh-brand-wrap">-->
+    <!--        <div class="mc">-->
+    <!--            <div class="userDefinedArea">-->
+    <!--                <a class="e-attention"><img src="//img11.360buyimg.com/cms/jfs/t17110/299/523083848/6700/fbd189c4/5a912944N474afb7a.png"></a>-->
+    <!--                <a class="a-attention"><img src="//img12.360buyimg.com/cms/jfs/t1/66069/6/5996/16644/5d41a1a5E4f0e0b3b/21626c4d952f48f6.jpg"></a>-->
+    <!--                <a class="a-attention"><img src="//img14.360buyimg.com/cms/jfs/t1/80734/15/5839/7622/5d414b4aEf3ddbafb/e8252fac82e70d96.jpg"></a>-->
+    <!--                <a class="a-attention"><img src="//img14.360buyimg.com/cms/jfs/t1/84247/12/5940/21310/5d41a2caE38003dc6/d0f1133a627ea8b5.jpg"></a>-->
+    <!--                <a class="a-attention"><img src="//img12.360buyimg.com/cms/jfs/t1/75168/19/4917/16065/5d3071f8E11cf4e86/59c37302447318c9.jpg"></a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <div class="user-nav">
+        <div class="user-con">
+        </div>
+    </div>
+</div>
+<div id="crumb-wrap">
+    <div class="cw">
+        <div class="cfl">
+            <div class="item"><span id="cla1"></span></div>
+            <div class="item sep">></div>
+            <div class="item"><a id="cla2"></a></div>
+            <div class="item sep">></div>
+            <div class="item"><a id="cla3"></a></div>
+
+        </div>
+        <div class="cfr">
+            <div class="name"><em class="u-jd">自营</em></div>
+            <div class="fr">
+                <div class="item">
+                    <div class="im"><i class="sprite-im"></i>联系客服</div>
+                </div>
+                <div class="item">
+                    <div class="follow"><i class="sprite-follow"></i>关注店铺</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="product">
+    <div class="product-intro">
+        <div class="preview-wrap">
+            <div class="preview" id="proImg">
+                <div id="spec-n1" class="jqzoom main-img">
+                    <img src="//img14.360buyimg.com/n1/s450x450_jfs/t1/19261/13/12605/324178/5c98c7bcE63f668de/ca2762256ec6f931.jpg">
+                    <i></i>
+                </div>
+                <div class="video" id="v-video" style="display: none; width: 450px; height: 450px; z-index: 6;">
+                    <div class="J-v-player"></div>
+                    <a href="" class="close-video J-close"></a>
+                </div>
+                <div class="spec-list">
+                    <a id="spec-forward" class="arrow-prev disabled"><i class="sprite-arrow-prev"></i></a>
+                    <a id="spec-backward" class="arrow-next"><i class="sprite-arrow-next"></i></a>
+                    <div id="spec-list" class="spec-items" style="position: relative; width: 380px; height: 58px; overflow: hidden;">
+                        <ul class="lh" style="position: absolute; width: 532px; height: 58px; top: 0px; left: 0px;">
+                            <li class=""><img src="//img14.360buyimg.com/n1/s450x450_jfs/t1/19261/13/12605/324178/5c98c7bcE63f668de/ca2762256ec6f931.jpg"  width="80" height="58"></li>
+                            <li class=""><img src="//img13.360buyimg.com/n5/s54x54_jfs/t1/7734/6/15470/209997/5c6fcbc9Ebd1c0f0b/e40b7b0dcac61c54.jpg"  width="80" height="58"></li>
+                            <li class=""><img src="//img13.360buyimg.com/n5/s54x54_jfs/t1/23456/24/7898/120571/5c6fcbc8E5e914f1e/7667c3f40823764d.jpg"  width="80" height="58"></li>
+                            <li class=""><img src="//img13.360buyimg.com/n5/s54x54_jfs/t1/10372/10/11648/26238/5c6fcbc8E44b2379b/093a366897bf3460.jpg"  width="80" height="58"></li>
+                            <li class=""><img src="//img13.360buyimg.com/n5/s54x54_jfs/t1/9469/35/15362/114676/5c6fcbc8E1adf47da/1f0dc97dc0ec8317.jpg"  width="80" height="58"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="preview-info">
+                    <div class="left-btns">
+                        <a class="follow">
+                            <i class="sprite-follow-sku"></i><em>关注</em>
+                        </a>
+                        <a class="share" >
+                            <i class="sprite-share"></i><em>分享</em>
+                        </a>
+                        <a class="compare">
+                            <i class="sprite-compare"></i><em>对比</em>
+                        </a>
+                    </div>
+                    <div class="right-btns">
+                        <a class="report-btn" href="//jubao.jd.com/index.html?skuId=7437708" >举报</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="itemInfo-wrap">
+            <div class="sku-name" id="sku-name"></div>
+            <div class="news">
+                <div class="item hide" id="p-ad"></div>
+                限时优惠200，成交价2599！索尼4800万广角微距三摄，屏下指纹解锁！
+                <a href="https://item.jd.com/100006583682.html#crumb-wrap">小米新品CC9e，强势来袭》》</a>
+            </div>
+            <div class="summary summary-first">
+                <div class="summary-price-wrap">
+                    <div class="summary-price">
+                        <div class="dt">京 东 价</div>
+                        <div class="dd">
+                            <span class="p-price" ><span>￥</span><span class="price" id="price"></span></span>
+                            <a class="notice" >降价通知</a>
+                        </div>
+                        <div class="summary-info">
+                            <div id="comment-count" class="comment-count item fl">
+                                <p class="comment">累计评价</p>
+                                <a class="count J-comm-7437708">30万+</a>
+                            </div>
+                        </div>
+                        <div class="summary-top " id="J-summary-top">
+                            <div class="summary-promotion" id="summary-promotion"><div class="dt">促　　销</div>
+                                <div class="dd">
+                                    <div class="p-promotions">
+                                        <ins id="prom-quan">
+                                            <div class="prom-quan">
+                                                <em class="hl_red_bg">满额返券</em>
+                                                <em class="hl_red">购自营通讯部分商品满1元返满199减100元京东超市神券，仅首单返券，发完即止。详情：</em>
+                                                &nbsp;<a href="https://pro.jd.com/mall/active/v3P63VzzZdVzYuUmxSPzaSK41ZT/index.html" target="_blank">详情 <s class="s-arrow">&gt;&gt;</s></a>
+                                            </div>
+                                        </ins>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="summary p-choose-wrap">
+                <div id="summary-support" class="li hide">
+                    <div class="dt">增值业务</div>
+                    <div class="dd">
+                        <ul class="choose-support lh">
+                            <li id="support-old2new" >
+                                <a href="//huishou.jd.com/&amp;skuId=7437708">
+                                    <i class="sprite-old2new"></i>
+                                    <span>高价回收-卖了换钱</span>
+                                </a>
+                            </li>
+                            <li id="support-tcbg" >
+                                <a href="#none">
+                                    <i class="sprite-tcbg"></i>
+                                    <span>3元1G</span>
+                                </a>
+                            </li>
+                            <li id="support-giftbuy">
+                                <a href="//cart-gift.jd.com/cart/addGiftToCart.action?pid=7437708&amp;pcount=1&amp;ptype=1">
+                                    <i class="sprite-giftbuy"></i>
+                                    <span>礼品包装</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="summary-stock">
+                    <div class="dt">配 送 至</div>
+                    <div class="dd">
+                        <div class="store">
+                            <div class="stock-address">
+                                <div id="area1" class="ui-area-wrap">
+                                    <div class="ui-area-text-wrap">
+                                        <div class="ui-area-text" >福建省厦门市集美区</div>
+                                        <b></b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="store-prompt" class="store-prompt"><span id="pro_status"></span></div>
+                            <div class="J-promise-icon promise-icon fl promise-icon-more">
+                                <div class="fl">支持</div>
+                                <div class="services services--more" id="ns_services">
+                                    <div>
+                                        <a href="//help.jd.com/user/issue/103-983.html">京尊达</a>
+                                        <i>|</i>
+                                        <a href="//help.jd.com/user/issue/103-983.html">京准达</a>
+                                        <i>|</i>
+                                        <a href="//help.jd.com/user/issue/103-983.html">自提</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="summary-supply" class="li">
+                    <div class="dt">　　</div>
+                    <div class="dd">
+                        <div id="summary-service" class="summary-service" >由
+                            <span class="hl_red">京东</span>
+                            发货, 并提供售后服务. 11:10前下单，预计<b>明天</b>送达</div>
+                    </div>
+                </div>
+                <div id="summary-weight" class="li" style="">
+                    <div class="dt">重　　量</div>
+                    <div class="dd" id="weight">3.45kg</div>
+                </div>
+                <div id="choose-attrs">
+                    <div id="choose-attr-2" class="li p-choose">
+                        <div class="dt ">选择版本 </div>
+                        <div class="dd">
+                            <div class="item" v-for="pro in pro_version">
+                                <b></b>
+                                <a href="" > {{pro.name}} </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="choose-attr-3" class="li p-choose">
+                        <div class="dt ">购买方式 </div>
+                        <div class="dd">
+                            <div class="item  selected">
+                                <b></b>
+                                <a href="">官方标配 </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="choose-service" class="li">
+                    <div class="dt">增值保障</div>
+                    <div class="dd">
+                        <div class="service-type-yb clearfix">
+                            <div class="yb-item-cat">
+                                <div class="yb-item">
+                                    <img class="icon" src="//img11.360buyimg.com//fuwu/jfs/t5431/52/1153921527/1119/b6e6fbf5/590c0c85N460e4552.png">
+                                    <span class="name">京享无忧2年</span>
+                                    <span class="price">￥199</span>
+                                    <i class="arrow-icon"></i>
+                                    <div class="after"></div>
+                                </div>
+                                <div class="yb-item">
+                                    <img class="icon" src="//img12.360buyimg.com//fuwu/jfs/t26878/276/2228896218/763/1abbf077/5bfb8aa3Nb600b3c9.jpg">
+                                    <span class="name">碎屏保2年</span>
+                                    <span class="price">￥149</span>
+                                    <i class="arrow-icon"></i>
+                                    <div class="after"></div>
+                                </div>
+                                <div class="yb-item">
+                                    <img class="icon" src="//img11.360buyimg.com//fuwu/jfs/t1/16415/24/5537/1400/5c3df83bE4d370933/f0b1c0e526aa9478.png">
+                                    <span class="name">原厂电池换新</span>
+                                    <span class="price">￥39</span>
+                                    <i class="arrow-icon"></i>
+                                    <div class="after"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="choose-service+" class="li">
+                    <div class="dt">京东服务</div>
+                    <div class="dd">
+                        <div class="service-wrap clearfix">
+                            <div class="service">
+                                <div class="service__head">
+                                    <img class="icon" src="//img30.360buyimg.com/test/jfs/t19900/129/209360534/1863/c00239fd/5aebb3a8N6f74bbd1.png">
+                                    <span class="name">电池换新</span>
+                                    <span class="price">￥38</span>
+                                    <i class="arrow-icon"></i>
+                                    <div class="after"></div>
+                                </div>
+                            </div>
+                            <div class="service">
+                                <div class="service__head">
+                                    <img class="icon" src="//img30.360buyimg.com/test/jfs/t1/31699/14/6786/1848/5c91aa6aEa1af85c6/ae69f4108d470508.png">
+                                    <span class="name">只换不修1年</span>
+                                    <span class="price">￥143</span>
+                                    <i class="arrow-icon"></i>
+                                    <div class="after"></div>
+                                </div>
+                            </div>
+                            <div class="service">
+                                <div class="service__head">
+                                    <img class="icon" src="//img30.360buyimg.com/test/jfs/t17776/210/2003594126/2589/af1c7233/5ae2a05aN07067189.png ">
+                                    <span class="name">数据恢复</span>
+                                    <span class="price">￥39</span>
+                                    <i class="arrow-icon"></i>
+                                    <div class="after"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="choose-baitiao" class="li choose-baitiao">
+                    <div class="dt">白条分期</div>
+                    <div class="dd">
+                        <div class="baitiao-list">
+                            <div class="item">
+                                <b></b>
+                                <a><strong>不分期</strong></a>
+                            </div>
+                            <div class="item">
+                                <b></b>
+                                <a><strong>￥879.34起×3期</strong></a>
+                            </div>
+                            <div class="item">
+                                <b></b>
+                                <a><strong>￥446.15起×6期</strong></a>
+                            </div>
+                            <div class="item">
+                                <b></b>
+                                <a><strong>￥229.62起×12期</strong></a>
+                            </div>
+                            <div class="item">
+                                <b></b>
+                                <a><strong>￥121.33起×24期</strong></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="choose-btns" class="choose-btns clearfix">
+                    <div class="choose-amount ">
+                        <input class="text buy-num" id="buy-num" value="1">
+                        <div id="reduce"><a class="btn-reduce" data-disabled="1">-</a></div>
+                        <div id="add"><a class="btn-add" data-disabled="1">+</a></div>
+
+                    </div>
+                    <a href="" id="InitCartUrl" class="btn-special1 btn-lg">加入购物车</a>
+                </div>
+                <div id="summary-tips" class="summary-tips" >
+                    <div class="dt">温馨提示</div>
+                    <div class="dd">
+                        <ol class="tips-list clearfix">
+                            <li class="local-txt">·支持7天无理由退货</li>
+                            <li class="local-txt">·此商品不可使用京券东券</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="comment" class="m m-content comment">
+    <div class="mt"><h3>商品评价</h3></div>
+    <div class="mc">
+        <div class="comments-list ETab">
+            <div class="tab-main small">
+                <ul class="filter-list">
+                    <li class="current">
+                        <a>全部评价</a>
+                        <em>(30万+)</em>
+                    </li>
+                    <li><a>晒图<em>(500)</em></a></li>
+                    <li><a>视频晒单<em>(2300+)</em></a></li>
+                    <li><a>追评<em>(4800+)</em></a></li>
+                    <li><a>好评<em>(10万+)</em></a></li>
+                    <li><a>中评<em>(2600+)</em></a></li>
+                    <li><a>差评<em>(3200+)</em></a></li>
+                </ul>
+                <div class="extra">
+                    <div class="sort-select">
+                        <div class="current">
+                            <span class="J-current-sortType">推荐排序</span>
+                            <i></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="conten" id="proComment">
+            <div class="contenBox" v-for="pro in pro_comment">
+                <div class="line"></div>
+                <div class="user">
+                    <img src="//m.360buyimg.com/babel/jfs/t1/32403/22/14829/3699/5cbf0674E04723693/caa83ce9b881cd24.png">
+                    <span>{{pro.user_info.name}}</span>
+                </div>
+                <div class="msg">{{pro.content}}</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    var user_id;
+    var username;
+    var produce_id;
+    var pversion_id;
+    var temp_pro;
+    var amount;
+
+
+    function getCookie(cname)
+    {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++)
+        {
+            var c = ca[i].trim();
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    if(getCookie("cookie_user_id") != null){
+        user_id = getCookie("cookie_user_id");
+    }if(getCookie("cookie_username") != null){
+        username = getCookie("cookie_username")
+    }if(getCookie("cookie_produce_id") != null){
+        produce_id = getCookie("cookie_produce_id")
+    }
+
+    var vn = new Vue({
+        el:'#user_name',
+        data:{user_name:{}},
+        created:function () {
+            this.user_name = username;
+        }
+    })
+
+    $(function () {
+        //获取商品信息状态类别
+        $.ajax({
+            url:"/selOneProDetail",
+            dataType:"json",
+            type:"post",
+            data:{id:produce_id},
+            success:function (data) {
+                $("#sku-name").html(data.title);
+                $("#price").html(data.min_price);
+                $("#pro_status").html(data.product_status.name);
+                $("#cla1").html(data.sid_big.name);
+                $("#cla2").html(data.sid_small.name);
+                $("#cla3").html(data.name);
+                produce_id = data.id;
+                temp_pro = data;
+            }
+        })
+        //获取版本信息
+        $.ajax({
+            url:"/getProductVersion",
+            dataType:"json",
+            type:"post",
+            data:{id:produce_id},
+            success:function (data) {
+                vm.pro_version = data;
+                pversion_id = data[0].id;
+            }
+        });
+        var vm = new Vue({
+            el:"#choose-attr-2",
+            data: {pro_version:""}
+        });
+        //获取图片
+        $.ajax({
+            url:"/getImgByProId",
+            dataType:"json",
+            type:"post",
+            data:{id:produce_id},
+            success:function (data) {
+                var vimg = new Vue({
+                    el:"#proImg",
+                    data: {pro_img:data.url},
+                });
+            }
+        })
+        //评论
+        $.ajax({
+            url:"/getCommentByProId",
+            dataType:"json",
+            type:"post",
+            data:{id:produce_id},
+            success:function (data) {
+                var vmc = new Vue({
+                    el:"#proComment",
+                    data: {pro_comment:data}
+                });
+                // vmc.pro_comment = data;
+            }
+        })
+
+        $("#add").click(function () {
+
+            $("#buy-num").val(amount+1);
+            amount = parseInt($("#buy-num").val());
+        })
+        $("#reduce").click(function () {
+
+            if(amount>1)
+            {
+                $("#buy-num").val(amount-1);
+            }
+            amount = parseInt($("#buy-num").val());
+        })
+        amount = parseInt($("#buy-num").val());
+
+
+        var shopInfo = function(user_id,produce_id,pversion_id,amount){
+            this.user_id = user_id;
+            this.produce_id = produce_id;
+            this.pversion_id = pversion_id;
+            this.amount = amount;
+        }
+        $("#InitCartUrl").click(function () {
+            var shopInfos = new shopInfo(1,produce_id,pversion_id,amount);
+            $.ajax({
+                url:"/insertShopCart",
+                dataType:"json",
+                type:"post",
+                data:JSON.stringify(shopInfos),
+                contentType : "application/json",
+                success:function () {
+                    alert("加入购物车成功");
+                }
+            })
+
+        })
+
+
+    })
+</script>
+</body>
+
+</html>

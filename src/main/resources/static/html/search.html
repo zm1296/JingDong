@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索页</title>
+    <link rel="stylesheet" type="text/css" href="../css/search.css"/>
+    <link rel="stylesheet" href="//sp.jd.com/payment/1.2.0/css/bankList.css" charset="utf-8">
+    <link type="text/css" rel="stylesheet"  href="//misc.360buyimg.com/user/purchase/2.0.0/widget/??common/common.css,header-2017/header-2017.css,consignee-scroll/consignee-scroll.css,consignee-selfpick/consignee-selfpick.css,payment-step/payment-step.css,presale-step/presale-step.css,shopping-list/shopping-list.css,invoice-dialog/invoice-dialog.css,order-virtual/order-virtual.css,order-summary/order-summary.css,checkout-floatbar/checkout-floatbar.css,paypwd/paypwd.css,/delivery-calendar-freight/delivery-calendar-freight.css,backpanel/backpanel.css" source="widget"/>
+    <link type="text/css" rel="stylesheet"  href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/5.0.0/ui-base.css,shortcut/5.0.0/shortcut.css,global-header/5.0.0/global-header.css,myjd/5.0.0/myjd.css,nav/5.0.0/nav.css,shoppingcart/5.0.0/shoppingcart.css,global-footer/5.0.0/global-footer.css,service/5.0.0/service.css"/>
+    <script src="../script/jquery-3.4.1.min.js"></script>
+    <script src="../script/vue.min.js"></script>
+
+</head>
+<body>
+<div id="first">
+    <div class="header">
+        <ul>
+            <li style="float: left; margin-left: 200px"><a href="#"><img src="../images/order/header/header-1.png" ><span> 京东首页</span></a></li>
+            <li style="float: left; margin-left: 20px" class="dropdown">
+                <a href="#">
+                    <img src="../images/order/header/header-2.png" >
+                    <span>北京</span>
+                </a>
+<!--                <ul class="dropdown-menu" id="dropdown-province">-->
+<!--                    <li class="province-menu"><a href="#">省份</a></li>-->
+<!--                </ul>-->
+            </li>
+        </ul>
+        <ul>
+            <li style="float: right;  margin-right: 200px"><a href="#"><span> 手机京东 </span></a></li>
+            <li style="float: right;  margin-right: 20px"><a href="#"><span> 网站导航 </span><img src="../images/order/header/header-4.png"></a> | </li>
+            <li style="float: right;  margin-right: 20px"><a href="#"><span> 客户服务 </span><img src="../images/order/header/header-4.png"></a> | </li>
+            <li style="float: right;  margin-right: 20px"><a href="#"><span> 企业采购 </span><img src="../images/order/header/header-4.png"></a> | </li>
+            <li style="float: right;  margin-right: 20px"><a href="#"><span> 京东会员 </span></a> | </li>
+            <li style="float: right;  margin-right: 20px"><a href="#"><span> 我的京东 </span><img src="../images/order/header/header-4.png"></a> | </li>
+            <li style="float: right;  margin-right: 20px"><a href="#"><span> 我的订单 |</span></a></li>
+            <li style="float: right;  margin-right: 20px"><a href="#"><span id="username">{{user_name}}<img src="../images/order/header/header-3.png" style=" width: 40px; height: 15px"> <img src="../images/order/header/header-4.png" ></span></a> | </li>
+        </ul>
+    </div>
+    <div id="main">
+        <div class="top">
+            <div class="top-img">
+                <a href="#"><img src="../images/order/top/top1.png" style="float: left;"></a>
+            </div>
+            <div id="searchdiv">
+                <input id="searchtext" name="searchtext" type="text"></input>
+                <button id="searchbutton" name="searchbutton" type="button"><i></i>搜索</button>
+            </div>
+        </div>
+    </div>
+    <div id="w">
+        <div class="item">
+            <div id="div_mianline">
+            <ul id="mainline">
+            <li class="line" id="line_b"><a id="mainitem">全部商品分类</a></li>
+            </ul>
+            </div>
+            <div class="spacer"></div>
+            <ul class="second">
+            <li class="line"><a class="w1">电脑</a></li>
+            </ul>
+            <div class="spacer"></div>
+            <ul class="second">
+            <li class="line"><a class="w2">手机</a></li>
+            </ul>
+            <div class="spacer"></div>
+            <ul class="second">
+            <li class="line"><a class="w3">电视</a></li>
+            </ul>
+            <div class="spacer"></div>
+            <ul class="second">
+            <li class="line"><a class="w4">冰箱</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="product">
+        <div id="puduct_used">
+            <div id="productdemo">
+                <div class="block_u" style="display: none"></div>
+                <div class="productmain">
+                    <div class="productimage">
+                        <a href="#">
+                            <img src="../images/product/0.png" style="float: left;">
+                        </a>
+                    </div>
+                    <div class="productprice"><a class="price"></a></div>
+                    <div class="productname"><a class="name"></a></div>
+                    <div class="producttitle"><a class="title"></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="service-2014">
+            <div class="slogan">
+                <img src="../images/search/service_items_1.png">
+                <img src="../images/search/service_items_2.png">
+                <img src="../images/search/service_items_3.png">
+                <img src="../images/search/service_items_4.png">
+            </div>
+            <div class="w">
+                <dl class="fore1">
+                    <dt>购物指南</dt>
+                    <dd>
+                        <div><a>购物流程</a>
+                        </div>
+                        <div><a>会员介绍</a>
+                        </div>
+                        <div><a>生活旅行/团购</a>
+                        </div>
+                        <div><a>常见问题</a></div>
+                        <div><a>大家电</a>
+                        </div>
+                        <div><a>联系客服</a></div>
+                    </dd>
+                </dl>
+                <dl class="fore2">
+                    <dt>配送方式</dt>
+                    <dd>
+                        <div><a>上门自提</a>
+                        </div>
+                        <div><a>211限时达</a>
+                        </div>
+                        <div><a>配送服务查询</a>
+                        </div>
+                        <div><a>配送费收取标准</a>
+                        </div>
+                        <div><a>海外配送</a></div>
+                    </dd>
+                </dl>
+                <dl class="fore3">
+                    <dt>支付方式</dt>
+                    <dd>
+                        <div><a>货到付款</a>
+                        </div>
+                        <div><a>在线支付</a>
+                        </div>
+                        <div><a>分期付款</a>
+                        </div>
+                        <div><a>邮局汇款</a>
+                        </div>
+                        <div><a>公司转账</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="fore4">
+                    <dt>售后服务</dt>
+                    <dd>
+                        <div><a>售后政策</a>
+                        </div>
+                        <div><a>价格保护</a>
+                        </div>
+                        <div><a>退款说明</a>
+                        </div>
+                        <div><a>返修/退换货</a>
+                        </div>
+                        <div><a>取消订单</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="fore5">
+                    <dt>特色服务</dt>
+                    <dd>
+                        <div><a >夺宝岛</a></div>
+                        <div><a >DIY装机</a></div>
+                        <div><a >延保服务</a></div>
+                        <div><a >京东E卡</a></div>
+                        <div><a >京东通信</a></div>
+                        <div><a >京东JD+</a></div>
+                    </dd>
+                </dl>
+                <div id="coverage">
+                    <div class="dt">
+                        京东自营覆盖区县
+                    </div>
+                    <div class="dd">
+                        <p>京东已向全国2649个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务。</p>
+                        <p class="ar"><a>查看详情&nbsp;&gt;</a>
+                        </p>
+                    </div>
+                </div>
+                <span class="clr"></span>
+            </div>
+        </div>
+        <div class="copyright">
+            <a target="_blank" href=""><img> 京公网安备11000002000088号</a>&nbsp;&nbsp;|&nbsp;&nbsp;京ICP证070359号&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a target="_blank" href="">互联网药品信息服务资格证编号(京)-经营性-2014-0008</a>&nbsp;&nbsp;|&nbsp;&nbsp;新出发京零&nbsp;字第大120007号<br>互联网出版许可证编号新出网证(京)字150号&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="" target="_blank">出版物经营许可证</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="" target="_blank">网络文化经营许可证京网文[2014]2148-348号</a>&nbsp;&nbsp;|&nbsp;&nbsp;违法和不良信息举报电话：4006561155<br>Copyright&nbsp;©&nbsp;2004&nbsp;-&nbsp;2016&nbsp;&nbsp;京东JD.com&nbsp;版权所有&nbsp;&nbsp;|&nbsp;&nbsp;消费者维权热线：4006067733<br>京东旗下网站：<a href="" target="_blank">京东钱包</a>
+        </div>
+    </div>
+</div>
+<script>
+    var userid;
+    var username;
+
+    if (getCookie("cookie_userid")!=null){
+        userid=getCookie("cookie_userid");
+    }
+    if (getCookie("cookie_username")!=null){
+        username=getCookie("cookie_username");
+    }
+
+    var data1 = new Vue({
+        el:'#username',
+        data:{user_name:{}},
+        created:function () {
+            this.user_name=username;
+        }
+    })
+
+
+    function getCookie(cname)
+    {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++)
+        {
+            var c = ca[i].trim();
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+
+
+
+
+
+    $(function(){
+
+        var $modle = $("#productdemo");
+
+        $.ajax({
+            url:"http://127.0.0.1:8080/api/search",
+            data:{key:" "} ,
+            dataType:"json",
+            type:"POST",
+            success:function (data) {
+                // console.log(data);
+                // alert(data);
+                $("#puduct_used").children().detach();
+                var im=["../images/product/0.JPG","../images/product/1.JPG","../images/product/2.JPG","../images/product/3.JPG"]
+                for (var i=0;i<data.length;i++){
+                    var $newNode = $modle.clone(true);
+                    $newNode.children().eq(0).html(data[i].id);
+                    $newNode.children().children().children().children().attr("src",im[i]);
+                    $newNode.children().children().eq(1).html("￥"+data[i].min_price);
+                    $newNode.children().children().eq(2).html(data[i].name);
+                    $newNode.children().children().eq(3).html(data[i].title);
+                    $("#puduct_used").append($newNode);
+                }
+            },
+        })
+
+        $("button[name='searchbutton']").click(function(){
+
+            $.ajax({
+                url:"http://127.0.0.1:8080/api/search",
+                data:{key:$("#searchtext").val()} ,
+                dataType:"json",
+                type:"POST",
+                success:function (data) {
+                    // console.log(data);
+                    // alert(data);
+                    $("#puduct_used").children().detach();
+                    var im=["../images/product/0.JPG","../images/product/1.JPG","../images/product/2.JPG","../images/product/3.JPG"]
+                    for (var i=0;i<data.length;i++){
+                        var $newNode = $modle.clone(true);
+                        $newNode.children().eq(0).html(data[i].id);
+                        $newNode.children().children().children().children().attr("src",im[i]);
+                        $newNode.children().children().eq(1).html("￥"+data[i].min_price);
+                        $newNode.children().children().eq(2).html(data[i].name);
+                        $newNode.children().children().eq(3).html(data[i].title);
+
+                        $("#puduct_used").append($newNode);
+                    }
+
+                },
+            })
+        })
+        $("#productdemo").click(function () {
+            var selectedid=$(this).children().eq(0).html();
+            document.cookie = ("cookie_produce_id = " + selectedid);
+            window.location.href = "http://127.0.0.1:8080/html/details.html";
+            // alert(selectedid);
+        })
+        $modle = $("#productdemo").detach();
+
+    })
+</script>
+</body>
+</html>
+
+
